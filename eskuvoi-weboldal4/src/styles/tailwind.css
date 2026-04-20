@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@import "./untitled-ui-theme.css";
+
+@plugin "tailwindcss-animate";
+@plugin "tailwindcss-react-aria-components";
+
+@custom-variant dark (&:where(.dark-mode, .dark-mode *));
+
+/* Override brand colors to match mooira rose palette */
+@theme {
+  --color-brand-50:  #fdf8f5;
+  --color-brand-100: #f7ede5;
+  --color-brand-200: #edd9cc;
+  --color-brand-300: #d9b89f;
+  --color-brand-400: #c89d82;
+  --color-brand-600: #b8967e;
+  --color-brand-700: #9a7460;
+}
