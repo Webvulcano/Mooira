@@ -9,6 +9,7 @@ import Process from './components/Process'
 import Testimonials from './components/Testimonials'
 import Pricing from './components/Pricing'
 import Contact from './components/Contact'
+import BookConsultation from './components/BookConsultation'
 import Footer from './components/Footer'
 import FontTweaks from './components/FontTweaks'
 import CopyToast from './components/CopyToast'
@@ -27,6 +28,7 @@ export default function App() {
       <Testimonials />
       <Pricing />
       <Contact />
+      <BookConsultation />
       <Footer />
       <FontTweaks />
       <CopyToast />
