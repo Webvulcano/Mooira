@@ -60,7 +60,16 @@ export default function Gallery() {
         onMouseMove={onMouseMove}
       >
         {images.map((img, i) => (
-          <img key={i} className={img.cls} src={img.src} alt="mooira esküvői ruha" />
+          <img
+            key={i}
+            className={img.cls}
+            src={img.src}
+            alt="mooira esküvői ruha"
+            loading={i < 2 ? 'eager' : 'lazy'}
+            decoding="async"
+            width={img.cls === 'portrait' ? 600 : 1280}
+            height={img.cls === 'portrait' ? 900 : 853}
+          />
         ))}
       </div>
     </section>

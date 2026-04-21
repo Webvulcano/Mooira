@@ -1,6 +1,8 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useCallback, memo } from 'react'
 import { useReveal } from './useReveal'
 import { DatePicker } from './untitled-ui/date-picker'
+
+const MemoDatePicker = memo(DatePicker)
 
 export default function BookConsultation() {
   const ref = useRef(null)
@@ -10,7 +12,10 @@ export default function BookConsultation() {
   const [date, setDate] = useState(null)
   const [submitted, setSubmitted] = useState(false)
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target
+    setForm(prev => ({ ...prev, [name]: value }))
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -64,7 +69,7 @@ export default function BookConsultation() {
             <div className="book__field">
               <span className="book__label">Esküvő tervezett időpontja</span>
               <div className="book__datepicker">
-                <DatePicker value={date} onChange={setDate} />
+                <MemoDatePicker value={date} onChange={setDate} />
               </div>
             </div>
 

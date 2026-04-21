@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 
 export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -37,15 +37,15 @@ export default function Navigation() {
     }
   }, [])
 
-  const openMenu = () => {
+  const openMenu = useCallback(() => {
     setMenuOpen(true)
     document.body.style.overflow = 'hidden'
-  }
-  const closeMenu = () => {
+  }, [])
+  const closeMenu = useCallback(() => {
     setMenuOpen(false)
     document.body.style.overflow = ''
-  }
-  const toggleMenu = () => menuOpen ? closeMenu() : openMenu()
+  }, [])
+  const toggleMenu = useCallback(() => menuOpen ? closeMenu() : openMenu(), [menuOpen, openMenu, closeMenu])
 
   const menuOpenClass = menuOpen ? ' menu-open' : ''
 
