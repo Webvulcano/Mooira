@@ -14,7 +14,7 @@ import Footer from './components/Footer'
 import FontTweaks from './components/FontTweaks'
 import CopyToast from './components/CopyToast'
 import { SpeedInsights } from "@vercel/speed-insights/react"
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
 
 export default function App() {
   return (
