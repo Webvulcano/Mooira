@@ -156,10 +156,19 @@ ul { list-style: none; }
   font-weight: 300;
   letter-spacing: 0.08em;
   color: var(--dark);
-  opacity: 0.82;
+  opacity: 0;
+  transform: translateY(24px);
   transition: color 0.2s, opacity 0.2s;
 }
 .mobile-nav-links a:hover { color: var(--rose); opacity: 1; }
+.mobile-menu.open .mobile-nav-links a {
+  animation: mobileMenuItemIn 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+.mobile-menu.open .mobile-nav-links a:nth-child(1) { animation-delay: 0.15s; }
+.mobile-menu.open .mobile-nav-links a:nth-child(2) { animation-delay: 0.24s; }
+.mobile-menu.open .mobile-nav-links a:nth-child(3) { animation-delay: 0.33s; }
+.mobile-menu.open .mobile-nav-links a:nth-child(4) { animation-delay: 0.42s; }
+.mobile-menu.open .mobile-nav-links a:nth-child(5) { animation-delay: 0.51s; }
 .mobile-menu-footer {
   position: absolute;
   bottom: 44px;
@@ -176,12 +185,22 @@ ul { list-style: none; }
   color: var(--dark);
   border: 1px solid var(--dark);
   padding: 13px 36px;
+  opacity: 0;
+  transform: translateY(24px);
   transition: border-color 0.2s, color 0.2s;
 }
 .mobile-menu-cta:hover { border-color: var(--rose); color: var(--rose); }
+.mobile-menu.open .mobile-menu-cta {
+  animation: mobileMenuItemInFull 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) 0.60s forwards;
+}
 .mobile-menu-contact {
   display: flex;
   gap: 24px;
+  opacity: 0;
+  transform: translateY(24px);
+}
+.mobile-menu.open .mobile-menu-contact {
+  animation: mobileMenuItemInFull 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) 0.69s forwards;
 }
 .mobile-menu-contact a {
   font-size: 0.72rem;
@@ -190,6 +209,11 @@ ul { list-style: none; }
   transition: color 0.2s;
 }
 .mobile-menu-contact a:hover { color: var(--off-white); }
+@media (prefers-reduced-motion: reduce) {
+  .mobile-nav-links a { opacity: 0.82 !important; transform: none !important; animation: none !important; }
+  .mobile-menu-cta,
+  .mobile-menu-contact { opacity: 1 !important; transform: none !important; animation: none !important; }
+}
 
 /* ─── HERO VIDEO ────────────────────────────────────── */
 .hero-video {
@@ -263,6 +287,14 @@ ul { list-style: none; }
   animation: scrollPulse 2.2s ease-in-out infinite;
 }
 .hero-video-scroll svg { width: 14px; height: 14px; }
+@keyframes mobileMenuItemIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 0.82; transform: translateY(0); }
+}
+@keyframes mobileMenuItemInFull {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 @keyframes scrollPulse {
   0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
   50%       { transform: translateX(-50%) translateY(7px); opacity: 0.6; }

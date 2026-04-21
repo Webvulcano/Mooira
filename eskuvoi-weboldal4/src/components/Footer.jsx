@@ -44,7 +44,7 @@ export default function Footer() {
       </div>
       <div className="footer-bottom">
         <p>© {new Date().getFullYear()} mooira · Tóth Eszter. Minden jog fenntartva.</p>
-        <p>Tervezte: Claude AI</p>
+        <p>Tervezte: Bognár Lehel</p>
       </div>
     </footer>
   )
