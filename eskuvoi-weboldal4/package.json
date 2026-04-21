@@ -14,6 +14,7 @@
     "@react-stately/utils": "^3.12.0",
     "@tailwindcss/vite": "^4.2.2",
     "@untitledui/icons": "^0.0.22",
+    "@vercel/speed-insights": "^2.0.0",
     "clsx": "^2.1.1",
     "react": "^19.2.5",
     "react-aria-components": "^1.17.0",
