@@ -43,7 +43,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>© 2025 mooira · Tóth Eszter. Minden jog fenntartva.</p>
+        <p>© {new Date().getFullYear()} mooira · Tóth Eszter. Minden jog fenntartva.</p>
         <p>Tervezte: Claude AI</p>
       </div>
     </footer>

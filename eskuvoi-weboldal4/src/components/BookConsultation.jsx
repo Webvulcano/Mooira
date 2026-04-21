@@ -21,7 +21,7 @@ export default function BookConsultation() {
     <section className="section section--pale book" id="foglalas" ref={ref}>
       <div className="book__inner">
         <div className="reveal">
-          <span className="eyebrow">Meghívó</span>
+          {/*<span className="eyebrow">Meghívó</span>*/}
           <h2 className="book__headline">
             Találkozzunk egy <em>csésze tea</em> mellett.
           </h2>

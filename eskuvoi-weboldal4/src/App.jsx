@@ -27,7 +27,7 @@ export default function App() {
       <Process />
       <Testimonials />
       <Pricing />
-      <Contact />
+      {/*<Contact />*/}
       <BookConsultation />
       <Footer />
       <FontTweaks />

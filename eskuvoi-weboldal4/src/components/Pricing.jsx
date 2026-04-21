@@ -36,7 +36,7 @@ export default function Pricing() {
     <section className="section section--pale" id="arak" ref={ref}>
       <div className="container">
         <div className="reveal">
-          <span className="eyebrow">Árak</span>
+          {/*<span className="eyebrow">Árak</span>*/}
           <h2 className="section-h2">Válaszd a <em>számodra</em><br />megfelelő megoldást.</h2>
           <p style={{ marginTop: '14px', fontSize: '0.88rem', color: 'var(--muted)' }}>
             Az árak bruttó árak és az anyagköltséget is tartalmazzák.

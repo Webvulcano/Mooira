@@ -2,42 +2,33 @@ import { getLocalTimeZone, isToday } from '@internationalized/date'
 import { CalendarCell as AriaCalendarCell } from 'react-aria-components'
 import { cx } from '../../utils/cx'
 
-export function CalendarCell({ date, isHighlighted, ...props }) {
+export function CalendarCell({ date, isHighlighted }) {
   const isTodayDate = isToday(date, getLocalTimeZone())
 
   return (
     <AriaCalendarCell
-      {...props}
       date={date}
-      className={({ isDisabled, isFocusVisible, isOutsideMonth }) =>
+      className={({ isDisabled, isOutsideMonth }) =>
         cx(
-          'relative size-10 focus:outline-hidden',
-          isDisabled ? 'pointer-events-none' : 'cursor-pointer',
-          isFocusVisible ? 'z-10' : 'z-0',
-          isOutsideMonth && 'opacity-50',
+          'dp-cell',
+          isDisabled && 'dp-cell--disabled',
+          isOutsideMonth && 'dp-cell--outside',
         )
       }
     >
       {({ isDisabled, isFocusVisible, isSelected, formattedDate }) => (
         <div
           className={cx(
-            'relative flex size-full items-center justify-center rounded-full text-sm text-secondary',
-            isDisabled && 'text-secondary/50',
-            isFocusVisible && 'outline-2 outline-offset-2 outline-focus-ring',
-            isSelected && 'bg-brand-solid font-medium text-white hover:bg-brand-solid_hover hover:text-white',
-            !isSelected && !isDisabled && 'hover:bg-primary_hover hover:font-medium',
-            !isSelected && isTodayDate && 'bg-secondary font-medium hover:bg-secondary_hover',
+            'dp-cell__inner',
+            isSelected && 'dp-cell__inner--selected',
+            !isSelected && isTodayDate && 'dp-cell__inner--today',
+            isFocusVisible && 'dp-cell__inner--focus',
+            isDisabled && 'dp-cell__inner--disabled',
           )}
         >
-          {formattedDate}
-          {(isHighlighted || isTodayDate) && (
-            <div
-              className={cx(
-                'absolute bottom-1 left-1/2 size-1.5 -translate-x-1/2 rounded-full',
-                isSelected ? 'bg-fg-white' : 'bg-fg-brand-primary',
-                isDisabled && 'opacity-50',
-              )}
-            />
+          <span className="dp-cell__number">{formattedDate}</span>
+          {(isHighlighted || isTodayDate) && !isSelected && (
+            <span className="dp-cell__dot" aria-hidden="true" />
           )}
         </div>
       )}

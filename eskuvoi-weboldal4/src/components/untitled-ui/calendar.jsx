@@ -8,46 +8,32 @@ import {
   Heading as AriaHeading,
   Button as AriaButton,
 } from 'react-aria-components'
-import { cx } from '../../utils/cx'
 import { CalendarCell } from './cell'
 
-export function Calendar({ highlightedDates, className, ...props }) {
+export function Calendar({ highlightedDates }) {
   return (
-    <AriaCalendar
-      {...props}
-      className={(state) =>
-        cx('flex flex-col gap-3', typeof className === 'function' ? className(state) : className)
-      }
-    >
+    <AriaCalendar className="dp-calendar">
       {() => (
         <>
-          <header className="flex items-center justify-between">
-            <AriaButton
-              slot="previous"
-              className="flex size-8 cursor-pointer items-center justify-center rounded-lg text-tertiary transition-colors hover:bg-primary_hover disabled:cursor-default disabled:opacity-40"
-            >
-              <ChevronLeft className="size-4" />
+          <header className="dp-header">
+            <AriaButton slot="previous" className="dp-nav" aria-label="Előző hónap">
+              <ChevronLeft className="dp-nav__icon" />
             </AriaButton>
-            <AriaHeading className="text-sm font-semibold text-fg-secondary" />
-            <AriaButton
-              slot="next"
-              className="flex size-8 cursor-pointer items-center justify-center rounded-lg text-tertiary transition-colors hover:bg-primary_hover disabled:cursor-default disabled:opacity-40"
-            >
-              <ChevronRight className="size-4" />
+            <AriaHeading className="dp-heading" />
+            <AriaButton slot="next" className="dp-nav" aria-label="Következő hónap">
+              <ChevronRight className="dp-nav__icon" />
             </AriaButton>
           </header>
 
-          <AriaCalendarGrid weekdayStyle="short" className="w-max">
-            <AriaCalendarGridHeader className="border-b-4 border-transparent">
+          <AriaCalendarGrid weekdayStyle="short" className="dp-grid">
+            <AriaCalendarGridHeader>
               {(day) => (
-                <AriaCalendarHeaderCell className="p-0">
-                  <div className="flex size-10 items-center justify-center text-sm font-medium text-secondary">
-                    {day.slice(0, 2)}
-                  </div>
+                <AriaCalendarHeaderCell className="dp-weekday-cell">
+                  <div className="dp-weekday">{day.slice(0, 2)}</div>
                 </AriaCalendarHeaderCell>
               )}
             </AriaCalendarGridHeader>
-            <AriaCalendarGridBody className="[&_td]:p-0 [&_tr]:border-b-4 [&_tr]:border-transparent [&_tr:last-of-type]:border-none">
+            <AriaCalendarGridBody>
               {(date) => (
                 <CalendarCell
                   date={date}
