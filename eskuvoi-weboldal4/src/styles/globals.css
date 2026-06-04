@@ -1027,13 +1027,11 @@ footer {
 
   .section { padding: 72px 24px; }
 
-  .collection-carousel { margin-left: -24px; margin-right: -24px; padding: 0 52px; }
-  .collection-item { flex-basis: 64%; }
+  .collection-carousel { margin-left: -24px; margin-right: -24px; padding: 0; }
+  .collection-item { flex-basis: 85%; }
   .collection-item-img { aspect-ratio: 3/4; }
-  .collection-track { padding: 0; gap: 12px; }
-  .collection-arrow { display: grid; }
-  .collection-arrow-prev { left: 4px; }
-  .collection-arrow-next { right: 4px; }
+  .collection-track { padding: 0 16px; gap: 10px; }
+  .collection-arrow { display: none; }
 
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .about-photos { padding-bottom: 0; padding-right: 0; }
