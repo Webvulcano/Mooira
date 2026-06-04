@@ -56,26 +56,28 @@ export default function Collection() {
     el.scrollBy({ left: dir * stepSize(), behavior: 'smooth' })
   }
 
-  const onPointerDown = (e) => {
+  const onMouseDown = (e) => {
     const el = trackRef.current
     if (!el) return
-    dragState.current = { active: true, startX: e.clientX, startScroll: el.scrollLeft, moved: false }
-    el.setPointerCapture(e.pointerId)
-    el.classList.add('is-dragging')
+    dragState.current = { active: true, startX: e.pageX - el.offsetLeft, startScroll: el.scrollLeft, moved: false }
+    el.style.cursor = 'grabbing'
   }
-  const onPointerMove = (e) => {
+  const onMouseLeave = () => {
+    dragState.current.active = false
+    if (trackRef.current) trackRef.current.style.cursor = 'grab'
+  }
+  const onMouseUp = () => {
+    dragState.current.active = false
+    if (trackRef.current) trackRef.current.style.cursor = 'grab'
+  }
+  const onMouseMove = (e) => {
     const s = dragState.current
     if (!s.active) return
-    const dx = e.clientX - s.startX
+    e.preventDefault()
+    const x = e.pageX - trackRef.current.offsetLeft
+    const dx = x - s.startX
     if (Math.abs(dx) > 4) s.moved = true
     trackRef.current.scrollLeft = s.startScroll - dx * 1.5
-  }
-  const onPointerUp = (e) => {
-    const s = dragState.current
-    if (!s.active) return
-    s.active = false
-    trackRef.current.classList.remove('is-dragging')
-    try { trackRef.current.releasePointerCapture(e.pointerId) } catch {}
   }
   const onClickCapture = (e) => {
     if (dragState.current.moved) {
@@ -110,10 +112,10 @@ export default function Collection() {
         <div
           className="collection-track"
           ref={trackRef}
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerCancel={onPointerUp}
+          onMouseDown={onMouseDown}
+          onMouseLeave={onMouseLeave}
+          onMouseUp={onMouseUp}
+          onMouseMove={onMouseMove}
           onClickCapture={onClickCapture}
         >
           {items.map(item => (

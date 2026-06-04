@@ -398,7 +398,6 @@ ul { list-style: none; }
   scrollbar-width: none;
   -ms-overflow-style: none;
   cursor: grab;
-  touch-action: pan-y;
   user-select: none;
 }
 .collection-track::-webkit-scrollbar { display: none; }
