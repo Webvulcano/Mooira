@@ -87,7 +87,7 @@ export default function BookConsultation() {
                 value={form.vision}
                 onChange={handleChange}
                 className="book__textarea"
-                placeholder="Mesélj nekem a stílusodról, a helyszínről, az érzésről…"
+                placeholder="Mesélj nekem a stílusodról..."
               />
             </label>
 

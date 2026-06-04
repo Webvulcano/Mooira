@@ -68,7 +68,7 @@ export default function Collection() {
     if (!s.active) return
     const dx = e.clientX - s.startX
     if (Math.abs(dx) > 4) s.moved = true
-    trackRef.current.scrollLeft = s.startScroll - dx
+    trackRef.current.scrollLeft = s.startScroll - dx * 1.5
   }
   const onPointerUp = (e) => {
     const s = dragState.current
