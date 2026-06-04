@@ -22,12 +22,12 @@ export default function App() {
       <Loader />
       <Navigation />
       <Hero />
-      <QuoteStrip />
-      <Collection />
+      [{/*<QuoteStrip />*/}]
       <About />
-      <Gallery />
+      <Collection />
       <Process />
       <Testimonials />
+      <Gallery />
       <Pricing />
       {/*<Contact />*/}
       <BookConsultation />

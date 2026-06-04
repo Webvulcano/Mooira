@@ -15,6 +15,10 @@ export default function BookConsultation() {
   const handleChange = useCallback((e) => {
     const { name, value } = e.target
     setForm(prev => ({ ...prev, [name]: value }))
+    if (e.target.tagName === 'TEXTAREA') {
+      e.target.style.height = 'auto'
+      e.target.style.height = e.target.scrollHeight + 'px'
+    }
   }, [])
 
   const handleSubmit = (e) => {
@@ -23,7 +27,7 @@ export default function BookConsultation() {
   }
 
   return (
-    <section className="section section--pale book" id="foglalas" ref={ref}>
+    <section className="section section--pale book" id="kapcsolat" ref={ref}>
       <div className="book__inner">
         <div className="reveal">
           {/*<span className="eyebrow">Meghívó</span>*/}
@@ -50,6 +54,7 @@ export default function BookConsultation() {
                 onChange={handleChange}
                 className="book__input"
                 autoComplete="name"
+                placeholder="A teljes neved"
               />
             </label>
 
@@ -63,6 +68,7 @@ export default function BookConsultation() {
                 onChange={handleChange}
                 className="book__input"
                 autoComplete="email"
+                placeholder="pelda@email.hu"
               />
             </label>
 
@@ -77,7 +83,7 @@ export default function BookConsultation() {
               <span className="book__label">Ruha elképzelés</span>
               <textarea
                 name="vision"
-                rows={5}
+                rows={1}
                 value={form.vision}
                 onChange={handleChange}
                 className="book__textarea"

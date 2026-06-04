@@ -19,9 +19,10 @@ export default function Navigation() {
         setNavClass(cls.trim())
         if (navRef.current) {
           if (!atTop) {
+            const nb = getComputedStyle(document.documentElement).getPropertyValue('--nav-bg').trim()
             navRef.current.style.background = window.scrollY > 60
-              ? 'rgba(248,246,243,0.98)'
-              : 'rgba(248,246,243,0.92)'
+              ? `rgba(${nb},0.98)`
+              : `rgba(${nb},0.92)`
           } else {
             navRef.current.style.background = ''
           }
@@ -54,10 +55,10 @@ export default function Navigation() {
       <nav className={`nav${navClass ? ' ' + navClass : ''}${menuOpenClass}`} id="nav" ref={navRef}>
         <a href="#" className="nav-logo">mooira</a>
         <ul className="nav-links">
-          <li><a href="#galeria">Galéria</a></li>
           <li><a href="#folyamat">Folyamat</a></li>
-          <li><a href="#arak">Árak</a></li>
           <li><a href="#velemenyek">Vélemények</a></li>
+          <li><a href="#galeria">Galéria</a></li>
+          <li><a href="#arak">Árak</a></li>
           <li><a href="#kapcsolat">Kapcsolat</a></li>
         </ul>
         <a href="#kapcsolat" className="nav-cta">Időpontot foglal</a>
@@ -72,10 +73,10 @@ export default function Navigation() {
 
       <div className={`mobile-menu${menuOpen ? ' open' : ''}`}>
         <nav className="mobile-nav-links">
-          <a href="#galeria" onClick={closeMenu}>Galéria</a>
           <a href="#folyamat" onClick={closeMenu}>Folyamat</a>
-          <a href="#arak" onClick={closeMenu}>Árak</a>
           <a href="#velemenyek" onClick={closeMenu}>Vélemények</a>
+          <a href="#galeria" onClick={closeMenu}>Galéria</a>
+          <a href="#arak" onClick={closeMenu}>Árak</a>
           <a href="#kapcsolat" onClick={closeMenu}>Kapcsolat</a>
         </nav>
         <div className="mobile-menu-footer">

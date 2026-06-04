@@ -28,7 +28,7 @@ export default function About() {
             </h2>
             <p>2014 óta tervezek és készítek egyedi esküvői ruhákat Győrben. Minden egyes darabot én álmodok meg és én készítek el — a legnagyobb odafigyeléssel, hogy igazán egyedi és tökéletes legyen.</p>
             <p>Fontos nekem, hogy te is különleges élményként éld meg ezt az időszakot. Személyesen kísérlek végig minden lépésen — az első konzultációtól az utolsó próbáig —, hogy a ruha tökéletesen illeszkedjen a személyiségedhez.</p>
-            <div className="about-stats">
+            {/*<div className="about-stats">
               <div>
                 <span className="stat-num">10+</span>
                 <span className="stat-label">Év tapasztalat</span>
@@ -41,7 +41,7 @@ export default function About() {
                 <span className="stat-num">100%</span>
                 <span className="stat-label">Elégedett menyasszony</span>
               </div>
-            </div>
+            </div>*/}
           </div>
         </div>
       </div>

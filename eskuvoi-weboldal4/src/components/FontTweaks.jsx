@@ -56,10 +56,10 @@ export default function FontTweaks() {
             >
               <span className="fp-name">
                 {p.label}
-                {p.note && <span style={{ color: 'var(--rose)' }}> {p.note}</span>}
+                {p.note && <span> {p.note}</span>}
               </span>
               <span className="fp-preview" style={{ fontFamily: p.serif }}>
-                Esküvői <em style={{ fontStyle: 'italic' }}>ruhák</em>
+                Esküvői <em>ruhák</em>
               </span>
             </button>
           ))}
