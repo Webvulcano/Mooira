@@ -15,6 +15,16 @@
   --sans:  'Plus Jakarta Sans', sans-serif;
 }
 
+/* ─── FONTS ─────────────────────────────────────────── */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/CormorantGaramond-VariableFont_wght.ttf') format('truetype-variations'),
+       url('/fonts/CormorantGaramond-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ─── RESET ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 em { font-style: normal; color: inherit; }
@@ -516,10 +526,10 @@ ul { list-style: none; }
   margin-bottom: 12px;
 }
 .about-name {
-  font-family: var(--serif);
-  font-size: 3.8rem;
-  font-weight: 300;
-  line-height: 1.12;
+  font-family: 'Cormorant Garamond', var(--serif);
+  font-size: 3.75rem;
+  font-weight: 350;
+  line-height: 1;
   margin-bottom: 24px;
 }
 .about-name em { color: var(--dark); }
@@ -528,16 +538,18 @@ ul { list-style: none; }
   line-height: 1.5;
   font-weight: 280;
   color: var(--muted);
-  margin-bottom: 16px;
+  margin-bottom: 2rem;
+  max-width: 90%;
+  word-spacing: 0.07rem;
 }
 .about-cta {
   font-size: 0.875rem;
-  font-weight: 400;
+  font-weight: 280;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   display: inline-block;
-  margin-top: 12px;
-  padding: 10px 28px;
+  margin-top: 0;
+  padding: 4px 25px;
   border: 1px solid var(--dark);
   border-radius: 999px;
   color: var(--dark);
