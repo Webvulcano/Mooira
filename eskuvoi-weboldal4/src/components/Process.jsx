@@ -20,7 +20,7 @@ export default function Process() {
           {steps.map(step => (
             <div className="process-step reveal" key={step.num}>
               <span className="about-label">{step.num}</span>
-              <h3 className="step-title">{step.title}</h3>
+              <h3 className="header-style">{step.title}</h3>
               <p className="p-style">{step.text}</p>
             </div>
           ))}

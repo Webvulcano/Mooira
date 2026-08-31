@@ -526,7 +526,7 @@ ul { list-style: none; }
   font-size: 1.125rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(0, 0, 0, 0.70);
   margin-bottom: 12px;
 }
 .about-name {
@@ -535,13 +535,6 @@ ul { list-style: none; }
   font-weight: 350;
   line-height: 1;
   margin-bottom: 24px;
-}
-.step-title {
-  font-family: var(--serif);
-  font-size: 1.75rem;
-  font-weight: 350;
-  line-height: 1;
-  margin-bottom: 12px;
 }
 .header-style {
   font-family: var(--serif);
@@ -601,7 +594,7 @@ ul { list-style: none; }
 /* ─── GALLERY ───────────────────────────────────────── */
 .gallery-section { padding: 80px 0; }
 .gallery-header {
-  padding: 0 80px 40px;
+  padding: 0 5rem;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -644,10 +637,10 @@ ul { list-style: none; }
   gap: 4.75rem 6rem;
 }
 .process-step .about-label {
-  color: rgba(0, 0, 0, 0.60);
+  color: rgba(0, 0, 0, 0.70);
   margin-bottom: 1.25rem;
 }
-.process-step .step-title {
+.process-step .header-style {
   margin-bottom: 1.125rem;
 }
 .process-step .p-style {
@@ -662,7 +655,7 @@ ul { list-style: none; }
 }
 .testi-carousel {
   overflow: hidden;
-  margin-top: 64px;
+  margin-top: 2rem;
 }
 .testi-track {
   display: flex;
@@ -676,37 +669,22 @@ ul { list-style: none; }
   text-align: center;
   padding: 0 clamp(3rem, 12vw, 10rem);
 }
+.testi-slide .p-style {
+  max-width: 26rem;
+}
 .testi-mark {
-  font-family: var(--serif);
-  font-weight: 350;
   font-size: 5rem;
-  line-height: 1;
-  color: var(--dark);
-  margin-bottom: 8px;
+  margin-bottom: 1rem;
   display: block;
   opacity: 0.55;
 }
-.testi-slide blockquote {
-  font-family: var(--serif);
-  font-weight: 350;
-  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
-  line-height: 1;
-  color: var(--dark);
-  max-width: 720px;
-  margin: 0 auto 28px;
-}
 .testi-divider {
-  width: 32px;
+  width: 2rem;
   height: 1px;
   background: var(--dark);
-  margin: 0 auto 20px;
+  margin: 0 auto 1.5rem;
 }
 .testi-slide cite {
-  font-family: var(--sans);
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--muted);
   font-style: normal;
 }
 .testi-dots {
@@ -750,48 +728,21 @@ ul { list-style: none; }
   background: var(--white);
   border-color: var(--dark);
 }
-.pricing-card.highlight .pricing-type { color: var(--dark); }
-.pricing-card.highlight h3 { color: var(--dark); }
-.pricing-card.highlight p { color: var(--dark); }
-.pricing-card.highlight .pricing-price { color: var(--dark); }
-.pricing-card.highlight .pricing-note { color: var(--dark); }
-.pricing-type {
-  font-size: 0.63rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--dark);
+.pricing-card .about-label,
+.pricing-card .header-style,
+.pricing-card .about-name,
+.pricing-card .p-style {
   display: block;
-  margin-bottom: 16px;
 }
-.pricing-card h3 {
-  font-family: var(--serif);
-  font-size: 1.8rem;
-  font-weight: 350;
-  color: var(--dark);
-  margin-bottom: 14px;
-  line-height: 1;
+.pricing-card .about-label {
+  margin-bottom: 1rem;
 }
-.pricing-card p {
-  font-size: 0.88rem;
-  line-height: 1.5;
-  font-weight: 280;
-  word-spacing: 0.07rem;
-  color: var(--muted);
-  margin-bottom: 32px;
+.pricing-card h3.header-style {
+  margin-bottom: 0.875rem;
 }
-.pricing-price {
-  font-family: var(--serif);
-  font-size: 2.4rem;
-  font-weight: 350;
-  color: var(--dark);
-  display: block;
-  line-height: 1;
-}
-.pricing-note {
-  font-size: 0.72rem;
-  color: var(--light-text);
-  margin-top: 6px;
-  display: block;
+.pricing-card span.about-name {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 /* ─── CTA / CONTACT ─────────────────────────────────── */
@@ -1090,7 +1041,7 @@ footer {
   .about-photo-main { aspect-ratio: 4/3; }
 
   .gallery-section { padding: 64px 0; }
-  .gallery-header { padding: 0 24px 32px; }
+  .gallery-header { padding: 0 1.5rem; }
   .gallery-track { padding: 0 24px; }
 
   .process-grid { grid-template-columns: 1fr; gap: 40px; }

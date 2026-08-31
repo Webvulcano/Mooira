@@ -32,8 +32,8 @@ export default function Testimonials() {
     <section id="velemenyek" ref={ref}>
       <div className="container" style={{ textAlign: 'center' }}>
         <div className="reveal">
-          <span className="eyebrow">Vélemények</span>
-          <h2 className="section-h2">Az ő <em>szavaikkal.</em></h2>
+          <p className="about-label">Vélemények</p>
+          <h2 className="header-style">Az ő szavaikkal.</h2>
         </div>
         <div
           className="testi-carousel reveal"
@@ -43,10 +43,10 @@ export default function Testimonials() {
           <div className="testi-track" style={{ transform: `translateX(-${current * 100}%)` }}>
             {slides.map((slide, i) => (
               <div className="testi-slide" key={i}>
-                <span className="testi-mark">"</span>
-                <blockquote>{slide.quote}</blockquote>
+                <span className="about-name testi-mark">"</span>
+                <blockquote className="p-style">{slide.quote}</blockquote>
                 <div className="testi-divider"></div>
-                <cite>{slide.cite}</cite>
+                <cite className="about-label">{slide.cite}</cite>
               </div>
             ))}
           </div>

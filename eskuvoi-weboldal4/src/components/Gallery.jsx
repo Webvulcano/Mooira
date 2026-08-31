@@ -44,12 +44,8 @@ export default function Gallery() {
 
   return (
     <section className="gallery-section" id="galeria" ref={sectionRef}>
-      <div className="gallery-header reveal">
-        <div>
-          <span className="eyebrow">Galéria</span>
-          <h2 className="section-h2">Az <em>elkészült</em> ruhák</h2>
-        </div>
-        <a href="#kapcsolat" className="link-arrow">Időpontot foglalok →</a>
+      <div className="gallery-header reveal in">
+        <h2 className="header-style">Galéria</h2>
       </div>
       <div
         className="gallery-track"

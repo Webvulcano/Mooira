@@ -36,20 +36,19 @@ export default function Pricing() {
     <section className="section section--pale" id="arak" ref={ref}>
       <div className="container">
         <div>
-          {/*<span className="eyebrow">Árak</span>*/}
-          <h2 className="section-h2">Válaszd a <em>számodra</em><br />megfelelő megoldást.</h2>
-          <p style={{ marginTop: '14px', fontSize: '0.88rem' }}>
+          <h2 className="header-style">Válaszd a számodra<br />megfelelő megoldást.</h2>
+          <p className="p-style">
             Az árak bruttó árak és az anyagköltséget is tartalmazzák.
           </p>
         </div>
         <div className="pricing-grid">
           {cards.map(card => (
             <div className={`pricing-card${card.highlight ? ' highlight' : ''}`} key={card.type}>
-              <span className="pricing-type">{card.type}</span>
-              <h3>{card.title}</h3>
-              <p>{card.desc}</p>
-              <span className="pricing-price">{card.price}</span>
-              <span className="pricing-note">{card.note}</span>
+              <span className="about-label">{card.type}</span>
+              <h3 className="header-style">{card.title}</h3>
+              <p className="p-style">{card.desc}</p>
+              <span className="about-name">{card.price}</span>
+              <span className="about-label">{card.note}</span>
             </div>
           ))}
         </div>
