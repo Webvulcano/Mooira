@@ -22,12 +22,14 @@ export default function About() {
             />
           </div>
           <div className="about-text reveal">
-            <h2 className="about-name" style={{ textAlign: 'center' }}>
-              Eszter vagyok,<br />és imádok<br />
-              <em>esküvői ruhákat</em><br />tervezni.
+            <p className="about-label">BEMUTATKOZÁS</p>
+            <h2 className="about-name">
+              Eszter vagyok,<br />esküvői ruhatervező.
             </h2>
             <p>2014 óta tervezek és készítek egyedi esküvői ruhákat Győrben. Minden egyes darabot én álmodok meg és én készítek el — a legnagyobb odafigyeléssel, hogy igazán egyedi és tökéletes legyen.</p>
+            <br/>
             <p>Fontos nekem, hogy te is különleges élményként éld meg ezt az időszakot. Személyesen kísérlek végig minden lépésen — az első konzultációtól az utolsó próbáig —, hogy a ruha tökéletesen illeszkedjen a személyiségedhez.</p>
+            <a href="#kollekcio" className="about-cta">Kollekció megtekintése</a>
             {/*<div className="about-stats">
               <div>
                 <span className="stat-num">10+</span>
