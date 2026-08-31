@@ -44,11 +44,11 @@ export default function Pricing() {
         <div className="pricing-grid">
           {cards.map(card => (
             <div className={`pricing-card${card.highlight ? ' highlight' : ''}`} key={card.type}>
-              <span className="about-label">{card.type}</span>
-              <h3 className="header-style">{card.title}</h3>
-              <p className="p-style">{card.desc}</p>
-              <span className="about-name">{card.price}</span>
-              <span className="about-label">{card.note}</span>
+              <span className="pricing-type">{card.type}</span>
+              <h3 className="pricing-title">{card.title}</h3>
+              <p className="pricing-desc">{card.desc}</p>
+              <span className="pricing-price">{card.price}</span>
+              <span className="pricing-note">{card.note}</span>
             </div>
           ))}
         </div>
