@@ -1,6 +1,7 @@
 export default function Footer() {
   return (
     <footer>
+      {/*
       <div className="footer-grid">
         <div>
           <div className="footer-logo">mooira</div>
@@ -42,6 +43,7 @@ export default function Footer() {
           </ul>
         </div>
       </div>
+                  */}
       <div className="footer-bottom">
         <p>© {new Date().getFullYear()} mooira · Tóth Eszter. Minden jog fenntartva.</p>
         <p>Tervezte: Bognár Lehel</p>

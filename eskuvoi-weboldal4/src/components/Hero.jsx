@@ -7,7 +7,7 @@ export default function Hero() {
       <div className="hero-video-overlay"></div>
       <div className="hero-video-content">
         <div className="hero-video-titles">
-          <div className="hero-video-brand">mooira</div>
+          <img className="hero-video-brand" src="/logo/small-logo-white.png" alt="mooira" />
           <div className="hero-video-tagline">Egyedi esküvői ruhák · Tóth Eszter</div>
         </div>
       </div>

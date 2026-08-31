@@ -29,7 +29,7 @@ export default function Loader() {
 
   return (
     <div className={`page-loader${hidden ? ' hidden' : ''}`}>
-      <span className="loader-brand">mooira</span>
+      <img className="loader-brand" src="/logo/small-logo-black.png" alt="mooira" />
     </div>
   )
 }

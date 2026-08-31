@@ -53,13 +53,15 @@ export default function Navigation() {
   return (
     <>
       <nav className={`nav${navClass ? ' ' + navClass : ''}${menuOpenClass}`} id="nav" ref={navRef}>
-        <a href="#" className="nav-logo">mooira</a>
+        <a href="#" className="nav-logo">
+          <img src="/logo/full-logo-black.png" alt="mooira" />
+        </a>
         <ul className="nav-links">
-          <li><a href="#folyamat">Folyamat</a></li>
-          <li><a href="#velemenyek">Vélemények</a></li>
-          <li><a href="#galeria">Galéria</a></li>
-          <li><a href="#arak">Árak</a></li>
-          <li><a href="#kapcsolat">Kapcsolat</a></li>
+          <li><a href="#folyamat" className="p-style">Folyamat</a></li>
+          <li><a href="#velemenyek" className="p-style">Vélemények</a></li>
+          <li><a href="#galeria" className="p-style">Galéria</a></li>
+          <li><a href="#arak" className="p-style">Árak</a></li>
+          <li><a href="#kapcsolat" className="p-style">Kapcsolat</a></li>
         </ul>
         <a href="#kapcsolat" className="nav-cta">Időpontot foglal</a>
         <button
