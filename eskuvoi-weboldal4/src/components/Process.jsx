@@ -15,13 +15,13 @@ export default function Process() {
   return (
     <section className="section section--dark" id="folyamat" ref={ref}>
       <div className="container">
-        <p className="process-heading reveal">Négy lépésben,<br />három hónap alatt.</p>
+        <p className="header-style reveal">Négy lépésben,<br />három hónap alatt.</p>
         <div className="process-grid">
           {steps.map(step => (
             <div className="process-step reveal" key={step.num}>
-              <span className="process-num">{step.num}</span>
-              <h3>{step.title}</h3>
-              <p>{step.text}</p>
+              <span className="about-label">{step.num}</span>
+              <h3 className="step-title">{step.title}</h3>
+              <p className="p-style">{step.text}</p>
             </div>
           ))}
         </div>

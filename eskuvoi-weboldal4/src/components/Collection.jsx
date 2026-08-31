@@ -89,10 +89,9 @@ export default function Collection() {
   return (
     <section className="section" id="kollekcio" ref={ref}>
       <div className="container">
-        <div className="collection-top reveal">
+        <div className="reveal">
           <div>
-            <span className="eyebrow">Kollekció</span>
-            <h2 className="section-h2">Kollekció <em>2025</em></h2>
+            <h2 className="header-style">Jelenlegi kollekció</h2>
           </div>
           {/*<a href="#kapcsolat" className="link-arrow">Teljes kollekcióhoz →</a>*/}
         </div>
