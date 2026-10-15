@@ -12,10 +12,8 @@ export default function Navigation() {
       rafRef.current = requestAnimationFrame(() => {
         rafRef.current = null
         const atTop = window.scrollY < 4
-        const isDesktop = window.innerWidth > 900
         let cls = ''
-        if (atTop) cls += 'video-top'
-        if (atTop && isDesktop) cls += ' nav-hidden'
+        if (atTop) cls += 'video-top nav-hidden'
         setNavClass(cls.trim())
         if (navRef.current) {
           if (!atTop) {

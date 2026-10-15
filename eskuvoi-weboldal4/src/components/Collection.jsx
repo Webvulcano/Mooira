@@ -3,14 +3,10 @@ import { Link } from 'react-router-dom'
 import { useReveal } from './useReveal'
 
 const items = [
-  { name: 'Celine',  slug: 'celine',  img: 'http://mooira.hu/wp-content/uploads/2015/01/foto-059.jpg' },
-  { name: 'Mirella', slug: 'mirella', img: 'http://mooira.hu/wp-content/uploads/2016/10/kicsibb.jpg' },
-  { name: 'Odette',  slug: 'odette',  img: 'http://mooira.hu/wp-content/uploads/2015/01/foto-311.jpg' },
-  { name: 'Vivien',  slug: 'vivien',  img: 'http://mooira.hu/wp-content/uploads/2015/01/foto-071.jpg' },
-  { name: 'Celine',  slug: 'celine-2',  img: 'http://mooira.hu/wp-content/uploads/2015/01/foto-059.jpg' },
-  { name: 'Mirella', slug: 'mirella-2', img: 'http://mooira.hu/wp-content/uploads/2016/10/kicsibb.jpg' },
-  { name: 'Odette',  slug: 'odette-2',  img: 'http://mooira.hu/wp-content/uploads/2015/01/foto-311.jpg' },
-  { name: 'Vivien',  slug: 'vivien-2',  img: 'http://mooira.hu/wp-content/uploads/2015/01/foto-071.jpg' },
+  { name: 'Celine',  slug: 'celine',  img: '/kollekcio/1.jpg' },
+  { name: 'Mirella', slug: 'mirella', img: '/kollekcio/2.jpg' },
+  { name: 'Odette',  slug: 'odette',  img: '/kollekcio/5.jpg' },
+  { name: 'Vivien',  slug: 'vivien',  img: '/kollekcio/4.jpg' },
 ]
 
 export default function Collection() {

@@ -4,25 +4,25 @@ import { useReveal } from './useReveal'
 const cards = [
   {
     type: 'Egyedi tervezés',
-    title: 'Teljesen egyedi ruha',
-    desc: 'Az elképzelésedből kiindulva megtervezzük és elkészítjük a méretedre az esküvői ruhád. Minden részlet személyre szabott.',
-    price: '390 000 Ft',
+    title: 'Egyedi ruhakészítés',
+    desc: 'Az elképzelésedből kiindulva megtervezzük és elkészítem a méretedre az esküvői ruhád.',
+    price: '420 000 Ft',
     note: '-tól · anyaggal együtt',
     highlight: false,
   },
   {
     type: 'Kollekcióból',
-    title: 'Kollekcióból, a méretedre',
-    desc: 'Válassz menyasszonyi ruhát a kollekciónkból, és elkészítjük az egyedi méretedre — 34–42-es mérettartományban.',
-    price: '360 000 Ft',
+    title: 'Kollekcióból méretre készítés',
+    desc: 'Válassz menyasszonyi ruhát a kollekcióból, és elkészítem a méretedre. (34–42-es méretig készítek esküvői ruhákat.)',
+    price: '390 000 Ft',
     note: '-tól · anyaggal együtt',
     highlight: true,
   },
   {
     type: 'Bérlés',
-    title: 'Esküvői ruha bérlése',
-    desc: 'Bérelj esküvői ruhát a kollekciónkból! Bemutatódarabok 36–38-as méretben, személyes próbával, konzultációval.',
-    price: '280 000 Ft',
+    title: 'Esküvői ruha bérlés',
+    desc: 'Bérelj esküvői ruhát a kollekcióból! A kollekció bemutató darabjai 36–38-as méretűek. Ha jó a méret, béreld!',
+    price: '290 000 Ft',
     note: '-tól',
     highlight: false,
   },
@@ -37,9 +37,9 @@ export default function Pricing() {
       <div className="container">
         <div>
           <h2 className="header-style">Válaszd a számodra<br />megfelelő megoldást.</h2>
-          <p className="p-style">
+          {/*<p className="p-style">
             Az árak bruttó árak és az anyagköltséget is tartalmazzák.
-          </p>
+          </p>*/}
         </div>
         <div className="pricing-grid">
           {cards.map(card => (

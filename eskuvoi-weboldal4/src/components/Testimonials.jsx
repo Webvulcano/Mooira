@@ -32,8 +32,10 @@ export default function Testimonials() {
     <section id="velemenyek" ref={ref}>
       <div className="container" style={{ textAlign: 'center' }}>
         <div className="reveal">
-          <p className="about-label">Vélemények</p>
-          <h2 className="header-style">Az ő szavaikkal.</h2>
+          {/*<p className="about-label">Vélemények</p>*/}
+          <h2 className="header-style">Vélemények</h2>
+
+          {/*<h2 className="header-style">Az ő szavaikkal.</h2>} */}
         </div>
         <div
           className="testi-carousel reveal"

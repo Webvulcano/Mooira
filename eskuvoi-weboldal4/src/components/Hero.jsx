@@ -1,7 +1,7 @@
 export default function Hero() {
   return (
     <section className="hero-video" id="heroVideo">
-      <video className="hero-video-bg" autoPlay muted loop playsInline preload="auto">
+      <video className="hero-video-bg" autoPlay muted loop playsInline preload="auto" poster="/hero-poster.jpg">
         <source src="/hero-video.mp4" type="video/mp4" />
       </video>
       <div className="hero-video-overlay"></div>

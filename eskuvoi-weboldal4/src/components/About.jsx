@@ -8,26 +8,20 @@ export default function About() {
   return (
     <section className="section section--pale" id="bemutatkozas" ref={ref}>
       <div className="container">
-        <div className="about-grid">
+        <div className="about-grid about-grid--reverse">
           <div className="about-photos reveal">
             <img
               className="about-photo-main"
-              src="http://mooira.hu/wp-content/uploads/2015/01/6-Szett-III-05.jpg"
+              src="/eszter.jpg"
               alt="Tóth Eszter, mooira tervező"
-            />
-            <img
-              className="about-photo-inset"
-              src="http://mooira.hu/wp-content/uploads/2016/10/IMG_1016.jpg"
-              alt="mooira műhely"
             />
           </div>
           <div className="about-text reveal">
-            <p className="about-label">BEMUTATKOZÁS</p>
-            <h2 className="about-name">
-              Eszter vagyok,<br />esküvői ruhatervező.
-            </h2>
-            <p>2014 óta tervezek és készítek egyedi esküvői ruhákat Győrben. Minden egyes darabot én álmodok meg és én készítek el — a legnagyobb odafigyeléssel, hogy igazán egyedi és tökéletes legyen.</p>
-            <p>Fontos nekem, hogy te is különleges élményként éld meg ezt az időszakot. Személyesen kísérlek végig minden lépésen — az első konzultációtól az utolsó próbáig —, hogy a ruha tökéletesen illeszkedjen a személyiségedhez.</p>
+            <p className="about-label">ISMERD MEG A TERVEZŐT</p>
+            <h2 className="about-name">Tóth Eszter</h2>
+            {/*<p className="about-subtitle">a Mooira Couture alapítója és kreatív alkotója</p>*/}
+            <p>Eszternek az álma valósult meg, amikor divattervezői tanulmányait követően 2014-ben megalapította a Mooira-t és esküvői ruhákat kezdett készíteni.</p>
+            <p>Eszter elhivatottsága és az esküvői ruhák iránti szenvedélye minden egyes kreációját átszövi. A tervező személyesen foglalkozik a menyasszonyokkal a ruhapróbákon és saját kezűleg készíti el az általa és menyasszonyai által megálmodott ruhákat, biztosítva ezzel a maximális odafigyelést és minőséget.</p>
             <a href="#kollekcio" className="about-cta">Kollekciók</a>
             {/*<div className="about-stats">
               <div>

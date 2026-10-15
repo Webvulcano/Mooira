@@ -35,11 +35,6 @@ export default function BookConsultation() {
 
         <div className="book__grid">
           <div className="book__side reveal">
-            <p className="p-style">
-              Foglalj időpontot egy kötetlen, hatvan perces konzultációra.
-              Bemutatom a kollekciót, te pedig mesélsz nekem az álmaidról —
-              hogy az a ruha, amiben végigsétálsz a szőnyegen, tényleg a tiéd legyen.
-            </p>
             <div className="book__contact-block">
               <span className="about-label">Email</span>
               <a href="mailto:info@mooira.hu" className="p-style book__side-value">info@mooira.hu</a>
