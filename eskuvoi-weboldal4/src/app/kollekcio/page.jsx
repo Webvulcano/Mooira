@@ -21,7 +21,7 @@ export default async function CollectionPage() {
 
       <main className="cg">
         <header className="cg-head">
-          <h1 className="cg-title" {...cmsAttr('kollekcio.head.title')}>{cms.text('kollekcio.head.title')}</h1>
+          <h1 className="cg-title header-style" {...cmsAttr('kollekcio.head.title')}>{cms.text('kollekcio.head.title')}</h1>
           <p className="cg-sub p-style" {...cmsAttr('kollekcio.head.subtitle')}>{cms.text('kollekcio.head.subtitle')}</p>
         </header>
 
