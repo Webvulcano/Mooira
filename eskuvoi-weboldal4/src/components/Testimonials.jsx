@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect, useRef } from 'react'
 import { useReveal } from './useReveal'
 
@@ -46,7 +48,7 @@ export default function Testimonials() {
           <div className="testi-track" style={{ transform: `translateX(-${current * 100}%)` }}>
             {slides.map((slide, i) => (
               <div className="testi-slide" key={i}>
-                <span className="about-name testi-mark">"</span>
+                <span className="about-name testi-mark">&quot;</span>
                 <blockquote className="p-style">{slide.quote}</blockquote>
                 <div className="testi-divider"></div>
                 <cite className="about-label">{slide.cite}</cite>

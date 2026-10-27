@@ -1,16 +1,14 @@
-import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import Navigation from '../components/Navigation'
-import BookConsultation from '../components/BookConsultation'
-import Footer from '../components/Footer'
+import Link from 'next/link'
+import Navigation from '@/components/Navigation'
+import BookConsultation from '@/components/BookConsultation'
+import Footer from '@/components/Footer'
+import { BRAND_NAME } from '@/lib/site'
+
+export const metadata = {
+  title: `Az oldal nem található — ${BRAND_NAME}`,
+}
 
 export default function NotFoundPage() {
-  useEffect(() => {
-    const prev = document.title
-    document.title = 'Az oldal nem található — Mooira'
-    return () => { document.title = prev }
-  }, [])
-
   return (
     <>
       <Navigation standalone />
@@ -30,7 +28,7 @@ export default function NotFoundPage() {
           <p className="nf-code">404</p>
           <h1 className="nf-title">Ez az oldal még csak vázlat.</h1>
           <div className="nf-actions">
-            <Link to="/" className="nf-btn nf-btn--solid">Vissza a főoldalra</Link>
+            <Link href="/" className="nf-btn nf-btn--solid">Vissza a főoldalra</Link>
           </div>
         </div>
       </main>

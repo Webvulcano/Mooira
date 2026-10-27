@@ -1,3 +1,5 @@
+'use client'
+
 import { useRef } from 'react'
 import { useReveal } from './useReveal'
 
@@ -45,7 +47,7 @@ export default function Gallery() {
   return (
     <section className="gallery-section" id="galeria" ref={sectionRef}>
       <div className="gallery-header reveal in">
-        <h2 className="header-style">Galéria</h2>
+        <h2 className="header-style">Kollekciók</h2>
       </div>
       <div
         className="gallery-track"

@@ -1,4 +1,7 @@
+'use client'
+
 import { useRef, useState, useEffect, useCallback } from 'react'
+import Link from 'next/link'
 import { useReveal } from './useReveal'
 
 const items = [
@@ -116,6 +119,14 @@ export default function Collection() {
               </div>
             </div>
           ))}
+          <div className="collection-item">
+            <div className="collection-item-img">
+              <Link href="/kollekcio" className="collection-cta" draggable={false}>
+                Tovább a kollekcióhoz
+                <span>Összes ruha →</span>
+              </Link>
+            </div>
+          </div>
         </div>
 
         <button

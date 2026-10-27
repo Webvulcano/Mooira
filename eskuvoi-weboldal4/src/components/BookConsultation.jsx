@@ -1,10 +1,18 @@
-import { useRef, useState, useCallback, memo } from 'react'
+'use client'
+
+import { useRef, useState, useCallback, useSyncExternalStore, memo } from 'react'
 import { useReveal } from './useReveal'
 import { DatePicker } from './untitled-ui/date-picker'
+import { trackEvent } from '@/lib/analytics'
+import { CONTACT_EMAIL, CONTACT_MAILTO, FACEBOOK_URL, INSTAGRAM_URL, PHONE_DISPLAY, PHONE_TEL } from '@/lib/site'
 
 const MemoDatePicker = memo(DatePicker)
 
-const FORM_ID = import.meta.env.VITE_SIMPLYFORMS_FORM_ID
+const FORM_ID = process.env.NEXT_PUBLIC_SIMPLYFORMS_FORM_ID
+
+// szerveren mindig false → nincs hydration-eltérés; böngészőben dev módban az URL-ből olvas
+const noopSubscribe = () => () => {}
+const getDevThanks = () => process.env.NODE_ENV === 'development' && new URLSearchParams(window.location.search).has('koszonjuk')
 
 export default function BookConsultation() {
   const ref = useRef(null)
@@ -12,7 +20,10 @@ export default function BookConsultation() {
 
   const [form, setForm] = useState({ name: '', email: '', city: '', vision: '' })
   const [date, setDate] = useState(null)
-  const [submitted, setSubmitted] = useState(false)
+  // csak fejlesztéskor: ?koszonjuk az URL-ben → rögtön a köszönő üzenet látszik (élesben nem működik)
+  const [sent, setSubmitted] = useState(false)
+  const devThanks = useSyncExternalStore(noopSubscribe, getDevThanks, () => false)
+  const submitted = sent || devThanks
   const [status, setStatus] = useState(null) // null | 'sending' | 'error'
 
   const handleChange = useCallback((e) => {
@@ -24,7 +35,7 @@ export default function BookConsultation() {
     }
   }, [])
 
-  // SimplyForms - a form ID publikus, API key nem kell (VITE_SIMPLYFORMS_FORM_ID env var)
+  // SimplyForms - a form ID publikus, API key nem kell (NEXT_PUBLIC_SIMPLYFORMS_FORM_ID env var)
   const handleSubmit = async (e) => {
     e.preventDefault()
     setStatus('sending')
@@ -44,6 +55,7 @@ export default function BookConsultation() {
       const res = await fetch(`https://api.simplyforms.app/v1/forms/${FORM_ID}`, { method: 'POST', body })
       if (!res.ok) throw new Error(await res.text())
       setSubmitted(true)
+      trackEvent('Űrlapküldés', { oldal: window.location.pathname })
     } catch (err) {
       console.error('[BookConsultation] SimplyForms hiba:', err)
       setStatus('error')
@@ -61,19 +73,19 @@ export default function BookConsultation() {
           <div className="book__side reveal">
             <div className="book__contact-block">
               <span className="about-label">Email</span>
-              <a href="mailto:info@mooira.hu" className="p-style book__side-value">info@mooira.hu</a>
+              <a href={CONTACT_MAILTO} className="p-style book__side-value">{CONTACT_EMAIL}</a>
             </div>
             <div className="book__contact-block">
               <span className="about-label">Telefon</span>
-              <a href="tel:+36705135869" className="p-style book__side-value">+36 70/513-5869</a>
+              <a href={PHONE_TEL} className="p-style book__side-value">{PHONE_DISPLAY}</a>
             </div>
             <div className="book__contact-block">
               <span className="about-label">Kövess minket</span>
               <div className="book__socials">
-                <a href="https://www.facebook.com/mooiramenyasszonyiruha" target="_blank" rel="noreferrer" aria-label="Facebook">
+                <a href={FACEBOOK_URL} target="_blank" rel="noreferrer" aria-label="Facebook">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z"/></svg>
                 </a>
-                <a href="https://www.instagram.com/mooira_couture/" target="_blank" rel="noreferrer" aria-label="Instagram">
+                <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" aria-label="Instagram">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
                 </a>
               </div>
@@ -82,7 +94,7 @@ export default function BookConsultation() {
 
           {!FORM_ID ? (
             <div className="book__success reveal in" role="status">
-              <p className="p-style">Az űrlap karbantartás alatt — addig írj az <a href="mailto:info@mooira.hu">info@mooira.hu</a> címre, vagy hívj.</p>
+              <p className="p-style">Az űrlap karbantartás alatt — addig írj az <a href={CONTACT_MAILTO}>{CONTACT_EMAIL}</a> címre, vagy hívj.</p>
             </div>
           ) : !submitted ? (
             <form className="book__form reveal" onSubmit={handleSubmit} noValidate>
@@ -152,12 +164,17 @@ export default function BookConsultation() {
                 {status === 'sending' ? 'Küldés…' : 'Küldés'} <span aria-hidden="true">→</span>
               </button>
               {status === 'error' && (
-                <p className="p-style" role="status">Hiba történt — addig írj az <a href="mailto:info@mooira.hu">info@mooira.hu</a> címre.</p>
+                <p className="p-style" role="status">Hiba történt — addig írj az <a href={CONTACT_MAILTO}>{CONTACT_EMAIL}</a> címre.</p>
               )}
             </form>
           ) : (
-            <div className="book__success reveal in" role="status">
-              <p className="p-style"><em>Köszönöm.</em> Hamarosan keresni foglak.</p>
+            <div className="book__success book__success--sent reveal in" role="status">
+              <p className="book__success-title">Örülök, hogy írtál!</p>
+              <p className="p-style">
+                Elolvasom az elképzelésed, és 1–2 napon belül személyesen keresni foglak,
+                hogy megbeszéljük a részleteket.
+              </p>
+              <p className="book__success-sign">— Eszter</p>
             </div>
           )}
         </div>

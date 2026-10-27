@@ -1220,6 +1220,25 @@ footer.site-footer {
 .book__success {
   padding: 40px 0;
 }
+.book__success--sent {
+  align-self: center;
+  justify-self: center;
+  max-width: 460px;
+  text-align: center;
+  color: var(--white);
+}
+.book__success-title {
+  font-family: var(--serif);
+  font-size: clamp(1.75rem, 2.6vw, 2.25rem);
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.book__success-sign {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-style: italic;
+  margin-top: 18px;
+}
 #kapcsolat .p-style { color: var(--white); }
 #kapcsolat .p-style em { color: var(--white); }
 
@@ -1568,4 +1587,69 @@ footer.site-footer {
   .nf-code { font-size: 6.5rem; margin-bottom: 16px; }
   .nf-actions { flex-direction: column; }
   .nf-btn { text-align: center; }
+}
+
+/* ─── KOLLEKCIÓ OLDAL (/kollekcio) ─────────────────── */
+.cg {
+  padding: 150px clamp(16px, 4vw, 40px) 100px;
+}
+.cg-head {
+  max-width: 560px;
+  margin: 0 auto 64px;
+  text-align: center;
+}
+.cg-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.cg-sub { font-size: 0.9rem; line-height: 1.6; }
+/* masonry: a képek saját arányukban, oszloponként folyamatosan */
+.cg-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  columns: 3;
+  column-gap: 9px;
+}
+.cg-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* padding (nem margin): a margin oszloptörésnél átcsúszik a következő oszlop tetejére → elcsúszott felső él */
+  padding-bottom: 9px;
+  break-inside: avoid;
+}
+@media (max-width: 1023px) { .cg-grid { columns: 2; } }
+@media (max-width: 767px) {
+  .cg { padding: 110px 16px 72px; }
+  .cg-head { margin-bottom: 40px; }
+  .cg-grid { columns: 2; column-gap: 6px; }
+  .cg-grid img { padding-bottom: 6px; }
+}
+
+/* főoldali carousel: utolsó kártya a kollekció oldalra visz */
+.collection-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  height: 100%;
+  border: 1px solid var(--beige);
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 400;
+  text-align: center;
+  transition: background 0.3s;
+}
+.collection-cta:hover { background: var(--beige); }
+.collection-cta span {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
 }

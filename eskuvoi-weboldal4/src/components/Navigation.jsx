@@ -1,4 +1,8 @@
+'use client'
+
 import { useState, useEffect, useRef, useCallback } from 'react'
+import Link from 'next/link'
+import { BRAND_NAME, CONTACT_EMAIL, CONTACT_MAILTO, PHONE_DISPLAY, PHONE_TEL } from '@/lib/site'
 
 // standalone: aloldalon (pl. 404) használva — mindig látszik, a szekció-linkek a főoldalra mutatnak
 export default function Navigation({ standalone = false }) {
@@ -54,12 +58,12 @@ export default function Navigation({ standalone = false }) {
     <>
       <nav className={`nav${navClass ? ' ' + navClass : ''}${menuOpenClass}`} id="nav" ref={navRef}>
         <a href={standalone ? '/' : '#'} className="nav-logo">
-          <img src="/logo/full-logo-black.png" alt="mooira" />
+          <img src="/logo/full-logo-black.png" alt={BRAND_NAME.toLowerCase()} />
         </a>
         <ul className="nav-links">
           <li><a href={`${base}#folyamat`} className="p-style">Folyamat</a></li>
           <li><a href={`${base}#velemenyek`} className="p-style">Vélemények</a></li>
-          <li><a href={`${base}#galeria`} className="p-style">Galéria</a></li>
+          <li><Link href="/kollekcio" className="p-style">Kollekciók</Link></li>
           <li><a href={`${base}#arak`} className="p-style">Árak</a></li>
           <li><a href="#kapcsolat" className="p-style">Kapcsolat</a></li>
         </ul>
@@ -77,15 +81,15 @@ export default function Navigation({ standalone = false }) {
         <nav className="mobile-nav-links">
           <a href={`${base}#folyamat`} onClick={closeMenu}>Folyamat</a>
           <a href={`${base}#velemenyek`} onClick={closeMenu}>Vélemények</a>
-          <a href={`${base}#galeria`} onClick={closeMenu}>Galéria</a>
+          <Link href="/kollekcio" onClick={closeMenu}>Kollekciók</Link>
           <a href={`${base}#arak`} onClick={closeMenu}>Árak</a>
           <a href="#kapcsolat" onClick={closeMenu}>Kapcsolat</a>
         </nav>
         <div className="mobile-menu-footer">
           <a href="#kapcsolat" className="mobile-menu-cta" onClick={closeMenu}>Időpontot foglalok</a>
           <div className="mobile-menu-contact">
-            <a href="mailto:info@mooira.hu">info@mooira.hu</a>
-            <a href="tel:+36705135869">+36 70 513 5869</a>
+            <a href={CONTACT_MAILTO}>{CONTACT_EMAIL}</a>
+            <a href={PHONE_TEL}>{PHONE_DISPLAY}</a>
           </div>
         </div>
       </div>

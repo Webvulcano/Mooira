@@ -1,6 +1,9 @@
+'use client'
+
 import { useState, useRef } from 'react'
 import { useReveal } from './useReveal'
 import { DatePicker } from './untitled-ui/date-picker'
+import { CONTACT_EMAIL, CONTACT_MAILTO, PHONE_DISPLAY, PHONE_TEL } from '@/lib/site'
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false)
@@ -56,13 +59,13 @@ export default function Contact() {
         )}
 
         <div className="cta-contacts">
-          <a href="mailto:info@mooira.hu" data-copy-email="info@mooira.hu">
-            info@mooira.hu
+          <a href={CONTACT_MAILTO} data-copy-email={CONTACT_EMAIL}>
+            {CONTACT_EMAIL}
             <span className="copy-icon">
               <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.4" /><path d="M3 11H2.5A1.5 1.5 0 0 1 1 9.5v-7A1.5 1.5 0 0 1 2.5 1h7A1.5 1.5 0 0 1 11 2.5V3" stroke="currentColor" strokeWidth="1.4" /></svg>
             </span>
           </a>
-          <a href="tel:+36705135869">+36 70 513 5869</a>
+          <a href={PHONE_TEL}>{PHONE_DISPLAY}</a>
         </div>
       </div>
     </section>

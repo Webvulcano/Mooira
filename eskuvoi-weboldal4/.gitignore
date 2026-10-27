@@ -9,6 +9,8 @@ lerna-debug.log*
 
 node_modules
 dist
+.next
+next-env.d.ts
 dist-ssr
 *.local
 .env
@@ -25,3 +27,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+# CMS tagok (ügyfél e-mailek) — soha ne kerüljön gitbe
+cms.members.local.json
