@@ -34,7 +34,8 @@ export default function BookConsultation() {
     body.append('Név', form.name)
     body.append('Email', form.email)
     if (form.city) body.append('Település', form.city)
-    if (date) body.append('Esküvő dátuma', date.toLocaleDateString('hu-HU'))
+    // a DatePicker CalendarDate-et ad (nem JS Date) → kézzel formázzuk: 2027. 06. 12.
+    if (date) body.append('Esküvő dátuma', `${date.year}. ${String(date.month).padStart(2, '0')}. ${String(date.day).padStart(2, '0')}.`)
     if (form.vision) body.append('Ruha elképzelés', form.vision)
     // "_" előtag: nem jelenik meg a levélben, csak Reply-To lesz → a válasz a kitöltőhöz megy
     body.append('_replyto', form.email)
