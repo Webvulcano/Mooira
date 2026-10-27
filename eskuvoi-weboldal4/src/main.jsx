@@ -5,6 +5,7 @@ import './styles/globals.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import App from './App.jsx'
 import CollectionItemPage from './pages/CollectionItemPage.jsx'
+import NotFoundPage from './pages/NotFoundPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -12,6 +13,7 @@ createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/collections/:slug" element={<CollectionItemPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
