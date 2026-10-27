@@ -36,6 +36,8 @@ export default function BookConsultation() {
     if (form.city) body.append('Település', form.city)
     if (date) body.append('Esküvő dátuma', date.toLocaleDateString('hu-HU'))
     if (form.vision) body.append('Ruha elképzelés', form.vision)
+    // "_" előtag: nem jelenik meg a levélben, csak Reply-To lesz → a válasz a kitöltőhöz megy
+    body.append('_replyto', form.email)
 
     try {
       const res = await fetch(`https://api.simplyforms.app/v1/forms/${FORM_ID}`, { method: 'POST', body })
