@@ -61,7 +61,7 @@ export default function Navigation() {
           <li><a href="#arak" className="p-style">Árak</a></li>
           <li><a href="#kapcsolat" className="p-style">Kapcsolat</a></li>
         </ul>
-        <a href="#kapcsolat" className="nav-cta">Időpontot foglal</a>
+        <a href="#kapcsolat" className="nav-cta">Időpontot foglalok</a>
         <button
           className={`nav-hamburger${menuOpen ? ' open' : ''}`}
           onClick={toggleMenu}
@@ -80,7 +80,7 @@ export default function Navigation() {
           <a href="#kapcsolat" onClick={closeMenu}>Kapcsolat</a>
         </nav>
         <div className="mobile-menu-footer">
-          <a href="#kapcsolat" className="mobile-menu-cta" onClick={closeMenu}>Időpontot foglal</a>
+          <a href="#kapcsolat" className="mobile-menu-cta" onClick={closeMenu}>Időpontot foglalok</a>
           <div className="mobile-menu-contact">
             <a href="mailto:info@mooira.hu">info@mooira.hu</a>
             <a href="tel:+36705135869">+36 70 513 5869</a>

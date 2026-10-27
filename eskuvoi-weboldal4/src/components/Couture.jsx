@@ -18,7 +18,7 @@ export default function Couture() {
           </div>
           <div className="about-text reveal">
             <p className="about-label">MOOIRA COUTURE</p>
-            <h2 className="about-name">
+            <h2 className="about-name couture-title">
               Ruha, ami<br />Rólad szól.
             </h2>
             <p>A Mooira esküvői ruhák a menyasszonyról szólnak. Vagyis Rólad.</p>

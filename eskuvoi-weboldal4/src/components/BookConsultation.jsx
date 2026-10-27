@@ -4,6 +4,8 @@ import { DatePicker } from './untitled-ui/date-picker'
 
 const MemoDatePicker = memo(DatePicker)
 
+const FORM_ID = import.meta.env.VITE_SIMPLYFORMS_FORM_ID
+
 export default function BookConsultation() {
   const ref = useRef(null)
   useReveal(ref)
@@ -11,6 +13,7 @@ export default function BookConsultation() {
   const [form, setForm] = useState({ name: '', email: '', city: '', vision: '' })
   const [date, setDate] = useState(null)
   const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState(null) // null | 'sending' | 'error'
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target
@@ -21,9 +24,27 @@ export default function BookConsultation() {
     }
   }, [])
 
-  const handleSubmit = (e) => {
+  // SimplyForms - a form ID publikus, API key nem kell (VITE_SIMPLYFORMS_FORM_ID env var)
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
+    setStatus('sending')
+
+    const body = new FormData()
+    body.append('subject', `ŰRLAPKITÖLTÉS - érdeklődik: ${form.name}`)
+    body.append('Név', form.name)
+    body.append('Email', form.email)
+    if (form.city) body.append('Település', form.city)
+    if (date) body.append('Esküvő dátuma', date.toLocaleDateString('hu-HU'))
+    if (form.vision) body.append('Ruha elképzelés', form.vision)
+
+    try {
+      const res = await fetch(`https://api.simplyforms.app/v1/forms/${FORM_ID}`, { method: 'POST', body })
+      if (!res.ok) throw new Error(await res.text())
+      setSubmitted(true)
+    } catch (err) {
+      console.error('[BookConsultation] SimplyForms hiba:', err)
+      setStatus('error')
+    }
   }
 
   return (
@@ -56,7 +77,11 @@ export default function BookConsultation() {
             </div>
           </div>
 
-          {!submitted ? (
+          {!FORM_ID ? (
+            <div className="book__success reveal in" role="status">
+              <p className="p-style">Az űrlap karbantartás alatt — addig írj az <a href="mailto:info@mooira.hu">info@mooira.hu</a> címre, vagy hívj.</p>
+            </div>
+          ) : !submitted ? (
             <form className="book__form reveal" onSubmit={handleSubmit} noValidate>
               <div className="book__row-3">
                 <label className="book__field">
@@ -120,9 +145,12 @@ export default function BookConsultation() {
                 />
               </label>
 
-              <button type="submit" className="about-cta book__submit">
-                Küldés <span aria-hidden="true">→</span>
+              <button type="submit" className="about-cta book__submit" disabled={status === 'sending'}>
+                {status === 'sending' ? 'Küldés…' : 'Küldés'} <span aria-hidden="true">→</span>
               </button>
+              {status === 'error' && (
+                <p className="p-style" role="status">Hiba történt — addig írj az <a href="mailto:info@mooira.hu">info@mooira.hu</a> címre.</p>
+              )}
             </form>
           ) : (
             <div className="book__success reveal in" role="status">

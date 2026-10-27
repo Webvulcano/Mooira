@@ -2,10 +2,9 @@ import { useRef } from 'react'
 import { useReveal } from './useReveal'
 
 const steps = [
-  { num: '01', title: 'Konzultáció', text: 'Megismerjük egymást és az elképzeléseidet. Megbeszéljük a stílusod, az esküvőd hangulatát és a ruha minden részletét.' },
-  { num: '02', title: 'Tervezés',    text: 'Kidolgozzuk az álmodott ruhád minden részletét. Anyagválasztás, szabásvonal, díszítések — minden az ízlésed szerint.' },
-  { num: '03', title: 'Próbák',      text: 'Csiszoljuk a ruhát, amíg tökéletes nem lesz. Általában 2–3 próba szükséges a hibátlan illesztéshez.' },
-  { num: '04', title: 'Átadás',      text: 'A kész ruha átadása — és te készen állsz rá, hogy felejthetetlen legyél a nagy napon.' },
+  { num: '01', title: 'Időpontfoglalás', text: 'Vedd fel velünk a kapcsolatot e-mailben vagy telefonon, és egyeztessünk egy számodra megfelelő időpontot! Ha egyedi menyasszonyi ruhát szeretnél, érdemes már az esküvőd előtt 9–12 hónappal felvenned velünk a kapcsolatot, hogy legyen elegendő időnk együtt megálmodni és megalkotni a számodra tökéletes ruhát. Ha ennél kevesebb idő áll rendelkezésedre, akkor se habozz írni nekünk! Keress bátran, és ha lehetőségeink engedik, örömmel segítünk megvalósítani az elképzeléseidet.' },
+  { num: '02', title: 'Konzultáció',    text: 'Egy személyes találkozás, ahol megismerjük az elképzeléseidet, bemutatódarabokat próbálhatsz fel, és közösen elindulunk a tökéletes fazon és a hozzád illő anyagok kiválasztása felé.' },
+  { num: '03', title: 'Próbák',      text: 'Az álomruhád megszületéséhez általában 3–4 személyes próbára van szükség, hogy minden részlet tökéletesen illeszkedjen hozzád.' },
 ]
 
 export default function Process() {
@@ -15,7 +14,7 @@ export default function Process() {
   return (
     <section className="section section--dark" id="folyamat" ref={ref}>
       <div className="container">
-        <p className="header-style reveal">Négy lépésben,<br />három hónap alatt.</p>
+        <p className="header-style reveal">Esküvői ruha készítés menete</p>
         <div className="process-grid">
           {steps.map(step => (
             <div className="process-step reveal" key={step.num}>

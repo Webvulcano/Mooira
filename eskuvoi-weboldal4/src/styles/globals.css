@@ -171,6 +171,7 @@ ul { list-style: none; }
   font-weight: 350;
   line-height: 1;
   letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--dark);
   opacity: 0;
   transform: translateY(24px);
@@ -403,16 +404,12 @@ ul { list-style: none; }
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  cursor: grab;
   user-select: none;
 }
 .collection-track::-webkit-scrollbar { display: none; }
-.collection-track.is-dragging { cursor: grabbing; scroll-behavior: auto; }
+.collection-track.is-dragging { scroll-behavior: auto; }
 .collection-item {
   flex: 0 0 calc((100% - 60px) / 4);
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
   display: block;
 }
 .collection-item-img {
@@ -540,6 +537,7 @@ ul { list-style: none; }
   margin-bottom: 2rem;
 }
 .about-name em { color: var(--dark); }
+.couture-title { font-size: 3.1rem; }
 .about-text p.about-subtitle {
   font-family: var(--serif);
   font-size: 1.6rem;
@@ -641,6 +639,9 @@ ul { list-style: none; }
   grid-template-columns: 1fr 1fr;
   gap: 4.75rem 6rem;
 }
+.process-step:first-child {
+  grid-column: 1 / -1;
+}
 .process-step .about-label {
   color: rgba(0, 0, 0, 0.70);
   margin-bottom: 1.25rem;
@@ -651,6 +652,8 @@ ul { list-style: none; }
 }
 .process-step .p-style {
   line-height: 1.65;
+  text-align: justify;
+  hyphens: auto;
 }
 
 /* ─── TESTIMONIALS ──────────────────────────────────── */
@@ -1103,7 +1106,7 @@ footer.site-footer {
 /* ─── MOBILE ────────────────────────────────────────── */
 /* ===== Book Consultation ===== */
 .book--dark {
-  background: var(--dark);
+  background: rgb(208, 144, 117);
   color: var(--white);
   padding-left: 0;
   padding-right: 0;
@@ -1116,6 +1119,7 @@ footer.site-footer {
   max-width: 100%;
   margin: 0 auto;
   padding: 0 5rem;
+  background: transparent;
 }
 #kapcsolat .header-style {
   color: var(--white);
@@ -1134,7 +1138,7 @@ footer.site-footer {
   gap: 1rem;
 }
 #kapcsolat .book__side .p-style {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.95);
   max-width: none;
   margin-bottom: 0;
 }
@@ -1173,7 +1177,7 @@ footer.site-footer {
   gap: 6px;
 }
 #kapcsolat .about-label {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.95);
   margin-bottom: 0;
 }
 .book__input,
@@ -1192,7 +1196,7 @@ footer.site-footer {
 }
 .book__input::placeholder,
 .book__textarea::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.8);
 }
 .book__input:focus,
 .book__textarea:focus {
@@ -1224,7 +1228,7 @@ footer.site-footer {
   color: var(--white);
 }
 #kapcsolat .dp-trigger__icon { color: var(--white); }
-#kapcsolat .dp-trigger--empty .dp-trigger__label { color: rgba(255, 255, 255, 0.4); }
+#kapcsolat .dp-trigger--empty .dp-trigger__label { color: rgba(255, 255, 255, 0.8); }
 
 
 @media (max-width: 1100px) {

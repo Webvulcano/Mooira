@@ -1,12 +1,11 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
-import { Link } from 'react-router-dom'
 import { useReveal } from './useReveal'
 
 const items = [
-  { name: 'Celine',  slug: 'celine',  img: '/kollekcio/1.jpg' },
-  { name: 'Mirella', slug: 'mirella', img: '/kollekcio/2.jpg' },
-  { name: 'Odette',  slug: 'odette',  img: '/kollekcio/5.jpg' },
-  { name: 'Vivien',  slug: 'vivien',  img: '/kollekcio/4.jpg' },
+  { img: '/kollekcio/1.jpg' },
+  { img: '/kollekcio/2.jpg' },
+  { img: '/kollekcio/5.jpg' },
+  { img: '/kollekcio/4.jpg' },
 ]
 
 export default function Collection() {
@@ -56,15 +55,12 @@ export default function Collection() {
     const el = trackRef.current
     if (!el) return
     dragState.current = { active: true, startX: e.pageX - el.offsetLeft, startScroll: el.scrollLeft, moved: false }
-    el.style.cursor = 'grabbing'
   }
   const onMouseLeave = () => {
     dragState.current.active = false
-    if (trackRef.current) trackRef.current.style.cursor = 'grab'
   }
   const onMouseUp = () => {
     dragState.current.active = false
-    if (trackRef.current) trackRef.current.style.cursor = 'grab'
   }
   const onMouseMove = (e) => {
     const s = dragState.current
@@ -114,19 +110,11 @@ export default function Collection() {
           onClickCapture={onClickCapture}
         >
           {items.map(item => (
-            <Link
-              to={`/collections/${item.slug}`}
-              className="collection-item"
-              key={item.slug}
-              draggable={false}
-            >
+            <div className="collection-item" key={item.img}>
               <div className="collection-item-img">
-                <img src={item.img} alt={`${item.name} esküvői ruha`} draggable={false} />
-                <div className="collection-item-meta">
-                  <span className="collection-name">{item.name}</span>
-                </div>
+                <img src={item.img} alt="Esküvői ruha" draggable={false} />
               </div>
-            </Link>
+            </div>
           ))}
         </div>
 
