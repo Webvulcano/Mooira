@@ -2,11 +2,12 @@ import { useState, useEffect, useRef } from 'react'
 import { useReveal } from './useReveal'
 
 const slides = [
-  { quote: 'Mindenki azt mondta, milyen gyönyörű vagyok benne! Pontosan olyan ruhát kaptam, amilyenben mindig szerettem volna megjelenni az esküvőmön.', cite: 'Marcsi · Győr' },
-  { quote: 'A próbákon minden alkalommal figyelmes és türelmes volt. A ruha tökéletesen illeszkedett, és annyira kényelmes volt viselni egész nap.', cite: 'Kata · Budapest' },
-  { quote: 'Anyagában és kivitelezésében is tökéletes volt. Minden barátnőmnek ajánlom Esztert, ha egyedi, elegáns ruhát szeretne az esküvőjére.', cite: 'Léna · Győr' },
-  { quote: 'Álomruha – ez az egyetlen szó, ami leírja. Az egész folyamat stresszmentes volt, Eszter minden apró részletre odafigyelt.', cite: 'Réka · Sopron' },
-  { quote: 'Nem hittem volna, hogy egy ruha ennyire önbizalmat adhat. A vendégek folyamatosan kérdeztek, hogy hol találtam ilyen különleges kreációt.', cite: 'Zsófi · Pécs' },
+  { quote: 'A ruha egyszerűen varázslatos volt. Imádtam minden benne töltött percet. Igazi hercegnőnek éreztem magam benne. A násznép is áradozott róla, milyen szép. Csodát alkottál. Nagyon köszönöm neked!', cite: 'Fanni' },
+  { quote: 'Szeretném még egyszer megköszönni, hogy elkészítetted az menyasszonyi ruhámat. Mindenki szerint csodaszép volt, és én is nagyon jól éreztem magam benne a nagy napunkon. ', cite: 'Noémi' },
+  { quote: 'Tényleg nem lehetek elég hálás, hogy egy ilyen lényeges résszel hozzájárultál az esküvőnkhöz, és nagyon köszönöm a rám szánt időt és kedvességet az első találkozástól kezdve.', cite: 'Dóra' },
+  { quote: 'Hálásan köszönöm a gyönyörű menyasszonyi ruhámat! ❤️❤️ Fantasztikus és gyönyörű volt,  imádtam és mindenki más is odáig volt érte.', cite: 'Dalma' },
+  { quote: 'Egyszerűen meseszépnek éreztem magam és mindenki agyon dicsérte, hogy na ez igazán én vagyok ez a ruha, és én is ezt gondolom.', cite: 'Dóra' },
+  { quote: 'Nagyon köszönöm mégegyszer a csodálatos ruhát 🥰 Gyönyörűnek éreztem magam benn egész nap. Szuperül bírta a terepet és a rengeteg táncot is.😁', cite: 'Adri' },
 ]
 
 export default function Testimonials() {
