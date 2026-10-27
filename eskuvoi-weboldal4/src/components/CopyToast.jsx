@@ -1,11 +1,12 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { CONTACT_EMAIL } from '@/lib/site'
+import { useSiteInfo } from './SiteInfo'
 
 export default function CopyToast() {
   const [show, setShow] = useState(false)
   const timerRef = useRef(null)
+  const { email } = useSiteInfo()
 
   useEffect(() => {
     const handler = (e) => {
@@ -28,7 +29,7 @@ export default function CopyToast() {
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
         <path d="M3 8.5l3.5 3.5 6.5-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
-      Kimásolva: {CONTACT_EMAIL}
+      Kimásolva: {email}
     </div>
   )
 }

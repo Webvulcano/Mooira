@@ -4,7 +4,8 @@ import { useRef, useState, useCallback, useSyncExternalStore, memo } from 'react
 import { useReveal } from './useReveal'
 import { DatePicker } from './untitled-ui/date-picker'
 import { trackEvent } from '@/lib/analytics'
-import { CONTACT_EMAIL, CONTACT_MAILTO, FACEBOOK_URL, INSTAGRAM_URL, PHONE_DISPLAY, PHONE_TEL } from '@/lib/site'
+import { cmsAttr } from '@/lib/cms-attr'
+import { useSiteInfo } from './SiteInfo'
 
 const MemoDatePicker = memo(DatePicker)
 
@@ -17,6 +18,8 @@ const getDevThanks = () => process.env.NODE_ENV === 'development' && new URLSear
 export default function BookConsultation() {
   const ref = useRef(null)
   useReveal(ref)
+  const info = useSiteInfo()
+  const c = info.contact
 
   const [form, setForm] = useState({ name: '', email: '', city: '', vision: '' })
   const [date, setDate] = useState(null)
@@ -65,27 +68,27 @@ export default function BookConsultation() {
   return (
     <section className="section book book--dark" id="kapcsolat" ref={ref}>
       <div className="book__inner">
-        <h2 className="header-style reveal">
-          Lépjünk kapcsolatba
+        <h2 className="header-style reveal" {...cmsAttr('home.contact.title')}>
+          {c.title}
         </h2>
 
         <div className="book__grid">
           <div className="book__side reveal">
             <div className="book__contact-block">
               <span className="about-label">Email</span>
-              <a href={CONTACT_MAILTO} className="p-style book__side-value">{CONTACT_EMAIL}</a>
+              <a href={info.mailto} className="p-style book__side-value" {...cmsAttr('home.contact_info.email')}>{info.email}</a>
             </div>
             <div className="book__contact-block">
               <span className="about-label">Telefon</span>
-              <a href={PHONE_TEL} className="p-style book__side-value">{PHONE_DISPLAY}</a>
+              <a href={info.tel} className="p-style book__side-value" {...cmsAttr('home.contact_info.phone')}>{info.phone}</a>
             </div>
             <div className="book__contact-block">
               <span className="about-label">Kövess minket</span>
               <div className="book__socials">
-                <a href={FACEBOOK_URL} target="_blank" rel="noreferrer" aria-label="Facebook">
+                <a href={info.facebook} target="_blank" rel="noreferrer" aria-label="Facebook">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z"/></svg>
                 </a>
-                <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" aria-label="Instagram">
+                <a href={info.instagram} target="_blank" rel="noreferrer" aria-label="Instagram">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
                 </a>
               </div>
@@ -94,7 +97,7 @@ export default function BookConsultation() {
 
           {!FORM_ID ? (
             <div className="book__success reveal in" role="status">
-              <p className="p-style">Az űrlap karbantartás alatt — addig írj az <a href={CONTACT_MAILTO}>{CONTACT_EMAIL}</a> címre, vagy hívj.</p>
+              <p className="p-style">Az űrlap karbantartás alatt — addig írj az <a href={info.mailto}>{info.email}</a> címre, vagy hívj.</p>
             </div>
           ) : !submitted ? (
             <form className="book__form reveal" onSubmit={handleSubmit} noValidate>
@@ -164,17 +167,14 @@ export default function BookConsultation() {
                 {status === 'sending' ? 'Küldés…' : 'Küldés'} <span aria-hidden="true">→</span>
               </button>
               {status === 'error' && (
-                <p className="p-style" role="status">Hiba történt — addig írj az <a href={CONTACT_MAILTO}>{CONTACT_EMAIL}</a> címre.</p>
+                <p className="p-style" role="status">Hiba történt — addig írj az <a href={info.mailto}>{info.email}</a> címre.</p>
               )}
             </form>
           ) : (
             <div className="book__success book__success--sent reveal in" role="status">
-              <p className="book__success-title">Örülök, hogy írtál!</p>
-              <p className="p-style">
-                Elolvasom az elképzelésed, és 1–2 napon belül személyesen keresni foglak,
-                hogy megbeszéljük a részleteket.
-              </p>
-              <p className="book__success-sign">— Eszter</p>
+              <p className="book__success-title" {...cmsAttr('home.contact.success_title')}>{c.successTitle}</p>
+              <p className="p-style" {...cmsAttr('home.contact.success_text')}>{c.successText}</p>
+              <p className="book__success-sign" {...cmsAttr('home.contact.success_sign')}>{c.successSign}</p>
             </div>
           )}
         </div>

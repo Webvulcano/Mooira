@@ -2,8 +2,10 @@
 
 import { useRef } from 'react'
 import { useReveal } from './useReveal'
+import RichText from './cms/RichText'
+import { cmsAttr } from '@/lib/cms-attr'
 
-export default function Couture() {
+export default function Couture({ label, title, body, image }) {
   const ref = useRef(null)
   useReveal(ref)
 
@@ -11,21 +13,15 @@ export default function Couture() {
     <section className="section" id="mooira-couture" ref={ref}>
       <div className="container">
         <div className="about-grid">
-          <div className="about-photos reveal">
-            <img
-              className="about-photo-main"
-              src="/mooira-couture.jpg"
-              alt="Menyasszony mooira esküvői ruhában"
-            />
+          <div className="about-photos reveal" {...cmsAttr('home.couture.image')}>
+            {image && <img className="about-photo-main" src={image.src} alt={image.alt} />}
           </div>
           <div className="about-text reveal">
-            <p className="about-label">MOOIRA COUTURE</p>
-            <h2 className="about-name couture-title">
-              Ruha, ami<br />Rólad szól.
+            <p className="about-label" {...cmsAttr('home.couture.label')}>{label}</p>
+            <h2 className="about-name couture-title" {...cmsAttr('home.couture.title')}>
+              {title.map((line, i) => <span key={i}>{i > 0 && <br />}{line}</span>)}
             </h2>
-            <p>A Mooira esküvői ruhák a menyasszonyról szólnak. Vagyis Rólad.</p>
-            <p>Arról a különleges érzésről, amikor igazán gyönyörűnek és felszabadultnak érzed magad. Egy ruha, ami könnyed, komfortos, kiemeli a szépséged, nőiességed, és teret ad annak, hogy a nagy napon szabadon átadhasd magad a házasságkötés meghitt pillanatainak.</p>
-            <p>A Mooira kifinomult, kissé romantikus stílusa személyre szabott tervezéssel találkozik, így minden ruha természetes harmóniába kerül azzal a nővel, aki viseli.</p>
+            <RichText value={body} {...cmsAttr('home.couture.body')} />
           </div>
         </div>
       </div>

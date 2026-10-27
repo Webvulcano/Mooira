@@ -2,35 +2,9 @@
 
 import { useRef } from 'react'
 import { useReveal } from './useReveal'
+import { cmsAttr } from '@/lib/cms-attr'
 
-const cards = [
-  {
-    type: 'Egyedi tervezés',
-    title: 'Egyedi ruhakészítés',
-    desc: 'Az elképzelésedből kiindulva megtervezzük és elkészítem a méretedre az esküvői ruhád.',
-    price: '420 000 Ft',
-    note: '-tól · anyaggal együtt',
-    highlight: false,
-  },
-  {
-    type: 'Kollekcióból',
-    title: 'Kollekcióból méretre készítés',
-    desc: 'Válassz menyasszonyi ruhát a kollekcióból, és elkészítem a méretedre. (34–42-es méretig készítek esküvői ruhákat.)',
-    price: '390 000 Ft',
-    note: '-tól · anyaggal együtt',
-    highlight: true,
-  },
-  {
-    type: 'Bérlés',
-    title: 'Esküvői ruha bérlés',
-    desc: 'Bérelj esküvői ruhát a kollekcióból! A kollekció bemutató darabjai 36–38-as méretűek. Ha jó a méret, béreld!',
-    price: '290 000 Ft',
-    note: '-tól',
-    highlight: false,
-  },
-]
-
-export default function Pricing() {
+export default function Pricing({ title, cards }) {
   const ref = useRef(null)
   useReveal(ref)
 
@@ -38,19 +12,21 @@ export default function Pricing() {
     <section className="section section--pale" id="arak" ref={ref}>
       <div className="container">
         <div>
-          <h2 className="header-style">Válaszd a számodra<br />megfelelő megoldást.</h2>
+          <h2 className="header-style" {...cmsAttr('home.pricing.title')}>
+            {title.map((line, i) => <span key={i}>{i > 0 && <br />}{line}</span>)}
+          </h2>
           {/*<p className="p-style">
             Az árak bruttó árak és az anyagköltséget is tartalmazzák.
           </p>*/}
         </div>
         <div className="pricing-grid">
-          {cards.map(card => (
-            <div className={`pricing-card${card.highlight ? ' highlight' : ''}`} key={card.type}>
-              <span className="pricing-type">{card.type}</span>
-              <h3 className="pricing-title">{card.title}</h3>
-              <p className="pricing-desc">{card.desc}</p>
-              <span className="pricing-price">{card.price}</span>
-              <span className="pricing-note">{card.note}</span>
+          {cards.map((card, i) => (
+            <div className={`pricing-card${card.highlight?.trim() ? ' highlight' : ''}`} key={i}>
+              <span className="pricing-type" {...cmsAttr('home.pricing.cards', i, 'type')}>{card.type}</span>
+              <h3 className="pricing-title" {...cmsAttr('home.pricing.cards', i, 'title')}>{card.title}</h3>
+              <p className="pricing-desc" {...cmsAttr('home.pricing.cards', i, 'desc')}>{card.desc}</p>
+              <span className="pricing-price" {...cmsAttr('home.pricing.cards', i, 'price')}>{card.price}</span>
+              <span className="pricing-note" {...cmsAttr('home.pricing.cards', i, 'note')}>{card.note}</span>
             </div>
           ))}
         </div>

@@ -1,14 +1,21 @@
-import { BRAND_NAME, CITY_IN, OWNER_NAME } from '@/lib/site'
 import SiteAnalytics from '@/components/analytics/SiteAnalytics'
+import CmsBridge from '@/components/cms/CmsBridge'
+import { SiteInfoProvider } from '@/components/SiteInfo'
+import { SEO } from '@/content/site'
+import { getCms } from '@/lib/cms'
+import { siteInfoFromCms } from '@/lib/site-info'
 import '@/styles/tailwind.css'
 import '@/styles/globals.css'
 
+// Alap (pl. 404-hez); a főoldal és a /kollekcio a CMS-ből írja felül (generateMetadata).
 export const metadata = {
-  title: `${BRAND_NAME.toLowerCase()} — Egyedi Esküvői Ruhák | ${OWNER_NAME}`,
-  description: `Egyedi esküvői ruhák tervezése és készítése ${CITY_IN}. ${OWNER_NAME} — 2014 óta, 200+ elkészült ruha.`,
+  title: SEO.title,
+  description: SEO.description,
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const cms = await getCms()
+
   return (
     // data-scroll-behavior: oldalváltáskor a Next azonnal ugrik a tetejére (a CSS smooth scroll csak a horgonyokra hat)
     <html lang="hu" data-scroll-behavior="smooth">
@@ -19,8 +26,9 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet" />
       </head>
       <body>
-        {children}
+        <SiteInfoProvider value={siteInfoFromCms(cms)}>{children}</SiteInfoProvider>
         <SiteAnalytics />
+        <CmsBridge />
       </body>
     </html>
   )

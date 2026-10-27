@@ -2,13 +2,15 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
-import { BRAND_NAME, CONTACT_EMAIL, CONTACT_MAILTO, PHONE_DISPLAY, PHONE_TEL } from '@/lib/site'
+import { BRAND_NAME } from '@/content/site'
+import { useSiteInfo } from './SiteInfo'
 
 // standalone: aloldalon (pl. 404) használva — mindig látszik, a szekció-linkek a főoldalra mutatnak
 export default function Navigation({ standalone = false }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [navClass, setNavClass] = useState(standalone ? '' : 'video-top nav-hidden')
   const base = standalone ? '/' : ''
+  const info = useSiteInfo()
   const navRef = useRef(null)
   const rafRef = useRef(null)
 
@@ -88,8 +90,8 @@ export default function Navigation({ standalone = false }) {
         <div className="mobile-menu-footer">
           <a href="#kapcsolat" className="mobile-menu-cta" onClick={closeMenu}>Időpontot foglalok</a>
           <div className="mobile-menu-contact">
-            <a href={CONTACT_MAILTO}>{CONTACT_EMAIL}</a>
-            <a href={PHONE_TEL}>{PHONE_DISPLAY}</a>
+            <a href={info.mailto}>{info.email}</a>
+            <a href={info.tel}>{info.phone}</a>
           </div>
         </div>
       </div>

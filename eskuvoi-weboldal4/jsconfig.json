@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "paths": {
+      "@/cms.manifest": ["./cms.manifest.js"],
       "@/*": ["./src/*"]
     }
   }

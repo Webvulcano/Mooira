@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react'
 import { useReveal } from './useReveal'
 import { DatePicker } from './untitled-ui/date-picker'
-import { CONTACT_EMAIL, CONTACT_MAILTO, PHONE_DISPLAY, PHONE_TEL } from '@/lib/site'
+import { CONTACT_EMAIL, CONTACT_MAILTO, PHONE_DISPLAY, PHONE_TEL } from '@/content/site'
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false)

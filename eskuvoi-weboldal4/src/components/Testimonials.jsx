@@ -2,17 +2,9 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useReveal } from './useReveal'
+import { cmsAttr } from '@/lib/cms-attr'
 
-const slides = [
-  { quote: 'A ruha egyszerűen varázslatos volt. Imádtam minden benne töltött percet. Igazi hercegnőnek éreztem magam benne. A násznép is áradozott róla, milyen szép. Csodát alkottál. Nagyon köszönöm neked!', cite: 'Fanni' },
-  { quote: 'Szeretném még egyszer megköszönni, hogy elkészítetted az menyasszonyi ruhámat. Mindenki szerint csodaszép volt, és én is nagyon jól éreztem magam benne a nagy napunkon. ', cite: 'Noémi' },
-  { quote: 'Tényleg nem lehetek elég hálás, hogy egy ilyen lényeges résszel hozzájárultál az esküvőnkhöz, és nagyon köszönöm a rám szánt időt és kedvességet az első találkozástól kezdve.', cite: 'Dóra' },
-  { quote: 'Hálásan köszönöm a gyönyörű menyasszonyi ruhámat! ❤️❤️ Fantasztikus és gyönyörű volt,  imádtam és mindenki más is odáig volt érte.', cite: 'Dalma' },
-  { quote: 'Egyszerűen meseszépnek éreztem magam és mindenki agyon dicsérte, hogy na ez igazán én vagyok ez a ruha, és én is ezt gondolom.', cite: 'Dóra' },
-  { quote: 'Nagyon köszönöm mégegyszer a csodálatos ruhát 🥰 Gyönyörűnek éreztem magam benn egész nap. Szuperül bírta a terepet és a rengeteg táncot is.😁', cite: 'Adri' },
-]
-
-export default function Testimonials() {
+export default function Testimonials({ title, slides }) {
   const [current, setCurrent] = useState(0)
   const pausedRef = useRef(false)
   const ref = useRef(null)
@@ -29,14 +21,14 @@ export default function Testimonials() {
       }
     }, 5000)
     return () => clearInterval(timer)
-  }, [])
+  }, [slides.length])
 
   return (
     <section id="velemenyek" ref={ref}>
       <div className="container" style={{ textAlign: 'center' }}>
         <div className="reveal">
           {/*<p className="about-label">Vélemények</p>*/}
-          <h2 className="header-style">Vélemények</h2>
+          <h2 className="header-style" {...cmsAttr('home.testimonials.title')}>{title}</h2>
 
           {/*<h2 className="header-style">Az ő szavaikkal.</h2>} */}
         </div>

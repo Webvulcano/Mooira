@@ -2,8 +2,10 @@
 
 import { useRef } from 'react'
 import { useReveal } from './useReveal'
+import RichText from './cms/RichText'
+import { cmsAttr } from '@/lib/cms-attr'
 
-export default function About() {
+export default function About({ label, name, body, cta, image }) {
   const ref = useRef(null)
   useReveal(ref)
 
@@ -11,20 +13,15 @@ export default function About() {
     <section className="section section--pale" id="bemutatkozas" ref={ref}>
       <div className="container">
         <div className="about-grid about-grid--reverse">
-          <div className="about-photos reveal">
-            <img
-              className="about-photo-main"
-              src="/eszter.jpg"
-              alt="Tóth Eszter, mooira tervező"
-            />
+          <div className="about-photos reveal" {...cmsAttr('home.about.image')}>
+            {image && <img className="about-photo-main" src={image.src} alt={image.alt} />}
           </div>
           <div className="about-text reveal">
-            <p className="about-label">ISMERD MEG A TERVEZŐT</p>
-            <h2 className="about-name">Tóth Eszter</h2>
+            <p className="about-label" {...cmsAttr('home.about.label')}>{label}</p>
+            <h2 className="about-name" {...cmsAttr('home.about.name')}>{name}</h2>
             {/*<p className="about-subtitle">a Mooira Couture alapítója és kreatív alkotója</p>*/}
-            <p>Eszternek az álma valósult meg, amikor divattervezői tanulmányait követően 2014-ben megalapította a Mooira-t és esküvői ruhákat kezdett készíteni.</p>
-            <p>Eszter elhivatottsága és az esküvői ruhák iránti szenvedélye minden egyes kreációját átszövi. A tervező személyesen foglalkozik a menyasszonyokkal a ruhapróbákon és saját kezűleg készíti el az általa és menyasszonyai által megálmodott ruhákat, biztosítva ezzel a maximális odafigyelést és minőséget.</p>
-            <a href="#kollekcio" className="about-cta">Kollekciók</a>
+            <RichText value={body} {...cmsAttr('home.about.body')} />
+            <a href="#kollekcio" className="about-cta" {...cmsAttr('home.about.cta')}>{cta}</a>
             {/*<div className="about-stats">
               <div>
                 <span className="stat-num">10+</span>

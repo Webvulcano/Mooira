@@ -3,15 +3,9 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { useReveal } from './useReveal'
+import { cmsAttr } from '@/lib/cms-attr'
 
-const items = [
-  { img: '/kollekcio/1.jpg' },
-  { img: '/kollekcio/2.jpg' },
-  { img: '/kollekcio/5.jpg' },
-  { img: '/kollekcio/4.jpg' },
-]
-
-export default function Collection() {
+export default function Collection({ title, ctaTitle, ctaSub, images }) {
   const ref = useRef(null)
   const trackRef = useRef(null)
   const [canPrev, setCanPrev] = useState(false)
@@ -86,7 +80,7 @@ export default function Collection() {
       <div className="container">
         <div className="reveal">
           <div>
-            <h2 className="header-style">Jelenlegi kollekció</h2>
+            <h2 className="header-style" {...cmsAttr('home.collection.title')}>{title}</h2>
           </div>
           {/*<a href="#kapcsolat" className="link-arrow">Teljes kollekcióhoz →</a>*/}
         </div>
@@ -112,18 +106,18 @@ export default function Collection() {
           onMouseMove={onMouseMove}
           onClickCapture={onClickCapture}
         >
-          {items.map(item => (
-            <div className="collection-item" key={item.img}>
+          {images.map((img, i) => (
+            <div className="collection-item" key={img.src} {...cmsAttr('home.collection.carousel', i)}>
               <div className="collection-item-img">
-                <img src={item.img} alt="Esküvői ruha" draggable={false} />
+                <img src={img.src} alt={img.alt || 'Esküvői ruha'} draggable={false} />
               </div>
             </div>
           ))}
           <div className="collection-item">
             <div className="collection-item-img">
               <Link href="/kollekcio" className="collection-cta" draggable={false}>
-                Tovább a kollekcióhoz
-                <span>Összes ruha →</span>
+                <div {...cmsAttr('home.collection.cta_title')}>{ctaTitle}</div>
+                <span {...cmsAttr('home.collection.cta_sub')}>{ctaSub}</span>
               </Link>
             </div>
           </div>

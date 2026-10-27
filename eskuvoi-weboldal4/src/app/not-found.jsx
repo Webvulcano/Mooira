@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Navigation from '@/components/Navigation'
 import BookConsultation from '@/components/BookConsultation'
 import Footer from '@/components/Footer'
-import { BRAND_NAME } from '@/lib/site'
+import { BRAND_NAME } from '@/content/site'
 
 export const metadata = {
   title: `Az oldal nem található — ${BRAND_NAME}`,

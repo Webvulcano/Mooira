@@ -1,4 +1,6 @@
-export default function Hero() {
+import { cmsAttr } from '@/lib/cms-attr'
+
+export default function Hero({ tagline }) {
   return (
     <section className="hero-video" id="heroVideo">
       <video className="hero-video-bg" autoPlay muted loop playsInline preload="auto" poster="/hero-poster.jpg">
@@ -8,7 +10,7 @@ export default function Hero() {
       <div className="hero-video-content">
         <div className="hero-video-titles">
           <img className="hero-video-brand" src="/logo/small-logo-white.png" alt="mooira" />
-          <div className="hero-video-tagline">Egyedi esküvői ruhák · Tóth Eszter</div>
+          <div className="hero-video-tagline" {...cmsAttr('home.hero.tagline')}>{tagline}</div>
         </div>
       </div>
       <a href="#quote" className="hero-video-scroll" aria-label="Görgetés">
