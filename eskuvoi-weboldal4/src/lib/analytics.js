@@ -3,7 +3,7 @@
 // Egyedi események a Vercel Web Analyticsbe (sütimentes). Oldalmegtekintés: <Analytics /> (SiteAnalytics),
 // ez a fájl a kapcsolatfelvételi kattintásokat + a sikeres űrlapküldést méri. Minta: Cyber Beaver.
 // Konverziók (cms.manifest.js analytics.vercel.conversions): Telefonhívás, Email, Űrlapküldés.
-// A többi esemény (Időpontfoglalás gomb, Instagram, Facebook, Kollekciók) = érdeklődés.
+// A többi esemény (Időpontfoglalás gomb, Instagram, Facebook, Mooira pillanatok, Rólunk) = érdeklődés.
 // Egyedi esemény csak Pro csomagban, max. 2 extra adat.
 import { track } from '@vercel/analytics'
 
@@ -29,7 +29,8 @@ export function classifyLink(href) {
   if (href.includes('instagram.com')) return 'Instagram'
   if (href.includes('facebook.com')) return 'Facebook'
   if (href === '#kapcsolat' || href === '/#kapcsolat') return 'Időpontfoglalás gomb'
-  if (href === '/kollekcio') return 'Kollekciók'
+  if (href === '/pillanatok') return 'Mooira pillanatok'
+  if (href === '/rolunk') return 'Rólunk'
   return null
 }
 
@@ -43,7 +44,6 @@ const PLACE_NAMES = {
   'mooira-couture': 'couture',
   bemutatkozas: 'bemutatkozás',
   kollekcio: 'kollekció',
-  folyamat: 'folyamat',
   velemenyek: 'vélemények',
   arak: 'árak',
   kapcsolat: 'kapcsolat',

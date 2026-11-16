@@ -17,11 +17,11 @@ export default function About({ label, name, body, cta, image }) {
             {image && <img className="about-photo-main" src={image.src} alt={image.alt} />}
           </div>
           <div className="about-text reveal">
-            <p className="about-label" {...cmsAttr('home.about.label')}>{label}</p>
+            <p className="about-label section-label" {...cmsAttr('home.about.label')}>{label}</p>
             <h2 className="about-name" {...cmsAttr('home.about.name')}>{name}</h2>
             {/*<p className="about-subtitle">a Mooira Couture alapítója és kreatív alkotója</p>*/}
             <RichText value={body} {...cmsAttr('home.about.body')} />
-            <a href="#kollekcio" className="about-cta" {...cmsAttr('home.about.cta')}>{cta}</a>
+            <a href="#kapcsolat" className="about-cta" {...cmsAttr('home.about.cta')}>{cta}</a>
             {/*<div className="about-stats">
               <div>
                 <span className="stat-num">10+</span>

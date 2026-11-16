@@ -14,6 +14,7 @@ export function siteInfoFromCms(cms) {
     instagram: cms.text('home.contact_info.instagram') || INSTAGRAM_URL,
     contact: {
       title: cms.text('home.contact.title'),
+      intro: cms.text('home.contact.intro'),
       successTitle: cms.text('home.contact.success_title'),
       successText: cms.text('home.contact.success_text'),
       successSign: cms.text('home.contact.success_sign'),

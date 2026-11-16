@@ -108,15 +108,16 @@ export default function Collection({ title, ctaTitle, ctaSub, images }) {
         >
           {images.map((img, i) => (
             <div className="collection-item" key={img.src} {...cmsAttr('home.collection.carousel', i)}>
-              <div className="collection-item-img">
+              {/* kattintás → a galériaoldal nyílik, rajta ez a kép nagyban (bezárás után a galéria marad) — Lehel, 2026-11-16 */}
+              <Link href={`/pillanatok?kep=${encodeURIComponent(img.src)}`} className="collection-item-img collection-item-btn" aria-label="Kép megnyitása nagyban" draggable={false}>
                 <img src={img.src} alt={img.alt || 'Esküvői ruha'} draggable={false} />
-              </div>
+              </Link>
             </div>
           ))}
           <div className="collection-item">
             <div className="collection-item-img">
-              <Link href="/kollekcio" className="collection-cta" draggable={false}>
-                <div {...cmsAttr('home.collection.cta_title')}>{ctaTitle}</div>
+              <Link href="/pillanatok" className="collection-cta" draggable={false}>
+                {ctaTitle && <div {...cmsAttr('home.collection.cta_title')}>{ctaTitle}</div>}
                 <span {...cmsAttr('home.collection.cta_sub')}>{ctaSub}</span>
               </Link>
             </div>

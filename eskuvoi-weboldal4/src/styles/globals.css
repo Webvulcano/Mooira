@@ -11,8 +11,18 @@
   --muted:      #000000;
   --light-text: #000000;
   --nav-bg:     255, 255, 255;
+  /* púder paletta (Eszter, 2026-11) — sötét szöveggel 11,5–17,6 : 1 kontraszt; fehérrel NEM olvasható */
+  --powder-light: #FBE7DE;
+  --powder:       #F1D3C9;
+  --powder-mid:   #E3C2B8;
+  --powder-deep:  #DDB8AE;
+  --popup-bg:     var(--powder);
   --serif: 'Cormorant Garamond', 'Jost', sans-serif;
   --sans:  'Plus Jakarta Sans', sans-serif;
+  /* MOBIL OLDALSÓ MARGÓ (≤900px) — itt állítsd központilag */
+  --gutter: 10px;
+  /* MOBIL kapcsolat-szekció: a cím feletti és alatti térköz */
+  --contact-space: 48px;
 }
 
 /* ─── FONTS ─────────────────────────────────────────── */
@@ -94,14 +104,17 @@ ul { list-style: none; }
   gap: 32px;
 }
 .nav-links a.p-style {
+  /* 1-es betű (mint a .about-label): Plus Jakarta Sans 280, ritkított, nagybetű, 70% fekete */
   text-transform: uppercase;
-  letter-spacing: 0.18rem;
+  letter-spacing: 0.18em;
+  color: rgba(0, 0, 0, 0.70);
   max-width: none;
   margin-bottom: 0;
   transition: color 0.2s;
   font-size: 1rem;
 }
-.nav-links a:hover { color: var(--dark); }
+.nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--dark); }
+.mobile-nav-links a[aria-current="page"] { color: var(--dark); }
 .nav-cta {
   font-size: 0.72rem;
   font-weight: 280;
@@ -167,7 +180,7 @@ ul { list-style: none; }
 }
 .mobile-nav-links a {
   font-family: var(--serif);
-  font-size: 2rem;
+  font-size: min(2rem, 7.4vw); /* „MOOIRA PILLANATOK” kis telefonon se lógjon ki */
   font-weight: 350;
   line-height: 1;
   letter-spacing: 0.08em;
@@ -352,6 +365,19 @@ ul { list-style: none; }
 
 /* ─── SHARED SECTION STYLES ─────────────────────────── */
 .section { padding: 100px 80px; }
+/* Couture → Bemutatkozás: két fehér szekció egymás után → a dupla padding túl nagy rés volt Eszter fotója felett */
+#bemutatkozas { padding-top: 0; }
+/* Mooira couture (#bemutatkozas) → Mooira pillanatok: szintén két fehér szekció → ugyanaz a térköz, mint fent */
+#kollekcio { padding-top: 0; }
+/* Pillanatok → Találd meg a tökéletes ruhát: fehér-fehér → nincs dupla padding */
+#ruhavalasztas { padding-top: 0; }
+/* Vélemények → Ruhapróba: fehér-fehér → nincs dupla padding */
+#ruhaproba { padding-top: 0; }
+/* Pillanatok → Vélemények → Árak: szintén fehér-fehér → egységes ~132px látható rés (desktop).
+   Vélemények felső térköze lent, a #velemenyek szabályban. Árak 37px: a vélemény-pöttyök 5px-et lelógnak a Vélemények aljába. */
+#arak, #arak-b { padding-top: 37px; }
+/* Ruhapróba → Csomagok: fehér-fehér → nincs dupla padding (a Ruhapróba alja adja a rést) */
+#arak-b { padding-top: 0; }
 .section--pale { background: var(--pale); }
 .section--blush { background: var(--blush); }
 .section--dark { background: var(--white); color: var(--dark); }
@@ -417,7 +443,10 @@ ul { list-style: none; }
   aspect-ratio: 3/4;
   position: relative;
 }
+/* a kép gomb (kattintásra Lightbox) — gomb-alapstílus nullázva (2026-11-16) */
+.collection-item-btn { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
 .collection-item-img img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -521,6 +550,9 @@ ul { list-style: none; }
   color: rgba(0, 0, 0, 0.70);
   margin-bottom: 12px;
 }
+/* Szekció-felirat a cím felett (pl. „KOLLEKCIÓ | KÉSZÍTÉS | BÉRLÉS") — MINDIG nagybetűs.
+   Használat: className="about-label section-label". Az űrlap/footer címkék (sima .about-label) nem nagybetűsek. */
+.section-label { text-transform: uppercase; }
 .about-name {
   font-family: var(--serif);
   font-size: 3.75rem;
@@ -623,49 +655,41 @@ ul { list-style: none; }
 .gallery-track img.portrait  { width: 280px; }
 .gallery-track img.landscape { width: 460px; }
 
-/* ─── PROCESS ───────────────────────────────────────── */
-.process-heading {
-  font-family: var(--serif);
-  font-size: clamp(30px, 3.8vw, 52px);
-  font-weight: 350;
-
-  color: var(--dark);
-  max-width: 560px;
-  line-height: 1;
-  margin-bottom: 72px;
-}
-.process-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4.75rem 6rem;
-}
-.process-step:first-child {
-  grid-column: 1 / -1;
-}
-.process-step .about-label {
-  color: rgba(0, 0, 0, 0.70);
-  margin-bottom: 1.25rem;
-}
-.process-step .header-style {
-  font-weight: 550;
-  margin-bottom: 1.125rem;
-}
-.process-step .p-style {
-  line-height: 1.65;
-  text-align: justify;
-  hyphens: auto;
-}
-
 /* ─── TESTIMONIALS ──────────────────────────────────── */
 #velemenyek {
   background: var(--pale);
-  padding-top: 100px;
+  padding-top: 32px; /* Pillanatok után ~132px látható rés (lásd #kollekcio) */
   padding-bottom: 100px;
+}
+.testi-wrap {
+  position: relative;
+  margin-top: 2rem;
 }
 .testi-carousel {
   overflow: hidden;
-  margin-top: 2rem;
+  touch-action: pan-y;
 }
+.testi-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 10px;
+  border: 0;
+  background: none;
+  color: var(--dark);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.testi-arrow svg { width: 100%; height: 100%; }
+@media (hover: hover) { .testi-arrow:hover { opacity: 0.5; } }
+/* desktopon az idézet (max 26rem) mellé, nem a képernyő szélére */
+.testi-arrow--prev { left: max(0px, calc(50% - 22rem)); }
+.testi-arrow--next { right: max(0px, calc(50% - 22rem)); }
 .testi-track {
   display: flex;
   transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
@@ -761,6 +785,65 @@ ul { list-style: none; }
   color: rgba(0, 0, 0, 0.75);
   margin-bottom: 1.5rem;
 }
+.pricing-more { display: inline-block; }
+/* kép csak mobilon (cikcakk) — desktop egyelőre a régi kártya */
+.pricing-img { display: none; }
+/* „Kollekció | készítés | bérlés” (CoutureIntro): „Bővebben →” a szöveg alatt → /rolunk (desktop + mobil) */
+.couture-more { display: inline-block; margin-top: 0; }
+/* a link előtti utolsó bekezdés alja: 16px rés (desktop + mobil egységesen; korábban 32 + 28 = 60px volt) */
+.about-text p:has(+ .couture-more) { margin-bottom: 16px; }
+
+/* ─── B VARIÁNS (PricingFull, 2026-11-16): 3 kép, felirat a képen. Desktop: egymás mellett, mobil: egymás alatt ─── */
+.pf-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* desktop: 3 kép egymás mellett */
+  gap: var(--gutter);
+  margin: 8px 0 0; /* a képek két oldalán a szekció paddingja (mobilon gutter) — Lehel */
+}
+.pf-item { position: relative; display: block; overflow: hidden; color: inherit; text-decoration: none; }
+/* 4:5 arány (mobilon 355×444px — a Pillanatok-képsor 402px-nél magasabb) */
+.pf-item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4/5;
+  height: auto;
+  object-fit: cover;
+  object-position: var(--x, 50%) var(--y, 50%);
+  transform: scale(var(--zoom, 1));
+  transform-origin: var(--x, 50%) var(--y, 50%);
+  /* színegységesítés (2026-11-16): képenként fény/kontraszt. A bőr és ruha ÁRNYALATA (szín, nem fényerő) a képfájlokban egyeztetve (script: forrasok/megoldasok-szinkorrekcio/proc3.py, eredetiek: forrasok/megoldasok-eredeti/). Itt csak finom fényerő — a brightness a színt nem változtatja — sepia/színtelenítés kikapcsolva, hogy a ruha fehér maradjon */
+  filter: brightness(var(--bright, 1)) contrast(var(--contrast, 1)) saturate(var(--sat, 1)) sepia(var(--warm, 0));
+}
+/* ▼▼ B VARIÁNS KÉPKIVÁGÁS — képenként (--zoom, --x, --y; ugyanúgy, mint az A variánsnál) ▼▼ */
+.pf-item:nth-child(1) { --zoom: 1; --x: 50%; --y: 30%; } /* 1. Egyedi tervezés */
+.pf-item:nth-child(2) { --zoom: 1; --x: 50%; --y: 50%; } /* 2. Kollekcióból */
+.pf-item:nth-child(3) { --zoom: 1; --x: 50%; --y: 50%; } /* 3. Bérlés (képcsere után alapra állítva) */
+/* ▼▼ B VARIÁNS SZÍNEGYSÉGESÍTÉS — képenként (--bright fényerő, --contrast kontraszt; 1 = eredeti).
+   Közös: --sat (színtelítettség, 1 = eredeti) és --warm (meleg tónus, 0 = nincs) a .pf-item img-n. Kikapcsolás: filter: none ▼▼ */
+.pf-item:nth-child(1) { --bright: 1.15; --contrast: 0.95; } /* 1. sötét fotó → finoman világosítva */
+.pf-item:nth-child(2) { --bright: 0.90; --contrast: 1; } /* 2. (flitteres portré) erős nap → picit tompítva */
+.pf-item:nth-child(3) { --bright: 1; --contrast: 1; } /* 3. (csipke + kezek) */
+/* ▲▲ */
+/* felirat a kép alján, fehérrel; alul enyhe sötétítés, hogy olvasható legyen */
+.pf-overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 64px 20px 22px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* vízszintesen középre (Lehel) */
+  text-align: center;
+  gap: 10px;
+}
+.pf-label {
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.pf-more, .pf-more:hover { color: var(--white); border-color: rgba(255, 255, 255, 0.7); }
 .pricing-price {
   display: block;
   font-family: var(--serif);
@@ -980,7 +1063,7 @@ footer.site-footer {
   justify-content: space-between;
   gap: 64px;
 }
-.site-footer__logo { width: 200px; height: auto; display: block; }
+.site-footer__logo { width: 140px; height: auto; display: block; } /* 200 → 140px (Lehel, 2026-11-16); a fejléc logója 122px */
 .site-footer__legal p {
   font-size: 0.95rem;
   font-weight: 280;
@@ -1106,7 +1189,7 @@ footer.site-footer {
 /* ─── MOBILE ────────────────────────────────────────── */
 /* ===== Book Consultation ===== */
 .book--dark {
-  background: rgb(208, 144, 117);
+  background: var(--powder-deep); /* #DDB8AE + fehér szöveg (Lehel kérése, 2026-11-13; kontraszt 1,82 : 1). Régi: rgb(208, 144, 117) */
   color: var(--white);
   padding-left: 0;
   padding-right: 0;
@@ -1125,6 +1208,10 @@ footer.site-footer {
   color: var(--white);
   margin: 0 0 1.5rem;
   text-align: left;
+}
+.book__intro {
+  max-width: 40rem;
+  margin: -0.5rem 0 2.5rem;
 }
 .book__grid {
   display: grid;
@@ -1220,25 +1307,60 @@ footer.site-footer {
 .book__success {
   padding: 40px 0;
 }
-.book__success--sent {
-  align-self: center;
-  justify-self: center;
-  max-width: 460px;
-  text-align: center;
-  color: var(--white);
+/* köszönő popup (BookConsultation) — natív <dialog> */
+.thanks {
+  margin: auto;
+  width: min(440px, calc(100vw - 32px));
+  max-width: none;
+  padding: 0;
+  border: 0;
+  background: var(--popup-bg);
+  color: var(--dark);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
 }
-.book__success-title {
+.thanks::backdrop { background: rgba(0, 0, 0, 0.35); }
+.thanks[open] { animation: thanksIn 0.35s ease; }
+.thanks[open]::backdrop { animation: thanksFade 0.35s ease; }
+@keyframes thanksIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes thanksFade { from { opacity: 0; } to { opacity: 1; } }
+.thanks__card {
+  position: relative;
+  padding: 56px 40px 48px;
+  text-align: center;
+}
+.thanks__title {
   font-family: var(--serif);
-  font-size: clamp(1.75rem, 2.6vw, 2.25rem);
-  line-height: 1.2;
+  font-size: clamp(1.9rem, 3vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.15;
   margin-bottom: 14px;
 }
-.book__success-sign {
+.thanks__text {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  font-weight: 300;
+}
+.thanks__sign {
   font-family: var(--serif);
   font-size: 1.35rem;
   font-style: italic;
   margin-top: 18px;
 }
+.thanks__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border: 0;
+  background: none;
+  color: var(--dark);
+  cursor: pointer;
+}
+.thanks__close svg { width: 100%; height: 100%; }
+@media (hover: hover) { .thanks__close:hover { opacity: 0.55; } }
+
 #kapcsolat .p-style { color: var(--white); }
 #kapcsolat .p-style em { color: var(--white); }
 
@@ -1250,7 +1372,8 @@ footer.site-footer {
 #kapcsolat .dp-trigger--empty .dp-trigger__label { color: rgba(255, 255, 255, 0.8); }
 
 
-@media (max-width: 1100px) {
+/* hamburger: 1200 px alatt (Kezdőlap + Rólunk menüponttal 1100–1200 px között torlódott) */
+@media (max-width: 1200px) {
   .nav { padding: 0 24px; transition: background 0.4s, border-color 0.4s, transform 0.3s ease; }
   .nav-links, .nav-cta { display: none; }
   .nav-hamburger { display: flex; transition: color 0.4s; }
@@ -1258,56 +1381,183 @@ footer.site-footer {
 
 @media (max-width: 900px) {
   .hero-video { height: 100svh; min-height: 0; }
-  .quote-strip { padding: 64px 24px; }
+  .nav { padding: 0 var(--gutter); }
+  .quote-strip { padding: 64px var(--gutter); }
 
-  .section { padding: 72px 24px; }
+  .section { padding: 72px var(--gutter); }
 
   .about-text p, .p-style { font-weight: 300; }
   .about-text p.about-label { font-size: 0.875rem; letter-spacing: 0.14em; margin-bottom: 6px; }
   .about-name, .couture-title { font-size: 2.5rem; margin-bottom: 16px; }
 
-  .collection-carousel { margin-left: -24px; margin-right: -24px; padding: 0; }
+  .collection-carousel { margin-left: calc(-1 * var(--gutter)); margin-right: calc(-1 * var(--gutter)); padding: 0; }
   .collection-item { flex-basis: 85%; }
   .collection-item-img { aspect-ratio: 3/4; }
-  .collection-track { padding: 0 16px; gap: 10px; }
+  .collection-track { padding: 0 var(--gutter); gap: 10px; }
   .collection-arrow { display: none; }
 
-  .about-grid { width: 100%; grid-template-columns: 1fr; gap: 40px; }
+  .about-grid { width: 100%; grid-template-columns: 1fr; gap: 20px; /* kép ↔ felirat távolság mobilon (Lehel, 2026-11-16: 40→20px) */ }
   .about-text { padding-left: 0; }
   .about-grid--reverse .about-photos { order: 0; }
   .about-grid--reverse .about-text { padding: 0; }
-  .about-photos { padding-bottom: 0; padding-right: 0; margin: 0 -24px; } /* teljes szélesség: kilóg a szekció 24px paddingjéből */
+  .about-photos { padding-bottom: 0; padding-right: 0; margin: 0 calc(-1 * var(--gutter)); } /* teljes szélesség: kilóg a szekció paddingjéből */
   .about-photo-inset { display: none; }
   .about-photo-main, .about-grid--reverse .about-photo-main { aspect-ratio: 4/3; width: 100%; margin: 0; object-position: center 28%; }
-  #bemutatkozas .about-photo-main { object-position: center 90%; } /* Ismerd meg a tervezőt kép kivágása */
+  #mooira-couture, #bemutatkozas, #ruhavalasztas, #ruhaproba { padding-bottom: 40px; } /* + az utolsó bekezdés 32px margója ≈ 72px Eszter fotója felett */
+  #mooira-couture { padding-top: var(--gutter); } /* hero videó → első kép: csak gutter rés (Lehel) */
+  #kollekcio { padding-bottom: var(--gutter); } /* Pillanatok carousel → „Találd meg…” képe: csak gutter rés (Lehel) */
+  /* Pillanatok → Vélemények → Árak: egységes 72px látható rés mobilon (Árak 5px: pötty-lelógás) */
+  #velemenyek { padding-top: 0; padding-bottom: 72px; }
+  #arak, #arak-b { padding-top: 5px; }
+  #arak-b { padding-top: 0; } /* Ruhapróba után (2026-11-16) */
+  #arak-b { padding-bottom: var(--gutter); } /* B variáns: a „Lépjünk kapcsolatba” fölött csak gutter (= a képek közti rés) */
+  #bemutatkozas .about-photo-main { object-position: center 58%; } /* Kollekció|készítés|bérlés kép kivágása (csipkés hát) */
+
+  /* ── „Találd meg a tökéletes ruhát” kép — MOBIL BEÁLLÍTÁS (csak ezt az 5 értéket írd át) ──
+     --kep-x:    vízszintes pozíció  0% = bal széle, 50% = közép, 100% = jobb széle
+     --kep-y:    függőleges pozíció  0% = teteje,    50% = közép, 100% = alja
+     --kep-zoom: közelítés           1 = eredeti, 1.3 = 30%-kal közelebb (1 alá ne menj → üres sáv lenne)
+     --kep-arany: képkeret aránya    4/3 = fekvő, 1/1 = négyzet, 3/4 = álló
+     --kep-magassag: fix magasság    auto = az arányból jön; pl. 420px vagy 60svh (ha megadod, felülírja az arányt) */
+  #ruhavalasztas {
+    --kep-x: 50%;
+    --kep-y: 15%;
+    --kep-zoom: 1;
+    --kep-arany: 4/3;
+    --kep-magassag: 400px;
+  }
+  #ruhavalasztas .about-photos, #ruhaproba .about-photos { overflow: hidden; }
+  #ruhavalasztas .about-photo-main, #ruhaproba .about-photo-main {
+    aspect-ratio: var(--kep-arany);
+    height: var(--kep-magassag);
+    object-position: var(--kep-x) var(--kep-y);
+    transform: scale(var(--kep-zoom));
+    transform-origin: var(--kep-x) var(--kep-y); /* a zoom a beállított pont felé közelít */
+  }
+
+  /* ── „Ruhapróba, ami Rólad szól” kép — MOBIL BEÁLLÍTÁS (ugyanúgy, mint fent) ── */
+  #ruhaproba {
+    --kep-x: 50%;
+    --kep-y: 28%;
+    --kep-zoom: 1;
+    --kep-arany: 4/3;
+    --kep-magassag: auto;
+  }
 
   .gallery-section { padding: 64px 0; }
-  .gallery-header { padding: 0 1.5rem; }
-  .gallery-track { padding: 0 24px; }
+  .gallery-header { padding: 0 var(--gutter); }
+  .gallery-track { padding: 0 var(--gutter); }
 
-  .process-grid { grid-template-columns: 1fr; gap: 40px; }
 
   .testi-slide blockquote { font-size: 1.1rem; }
 
-  .pricing-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; gap: var(--gutter); }
+  .pricing-card { padding: 22px 16px; }
+  .pricing-type { margin-bottom: 0.5rem; }
+  .pricing-desc { margin-bottom: 0.9rem; }
 
-  .cta-section { padding: 80px 24px; }
+  /* Képes cikcakk (2026-11-16): kép a képernyő széléig kifut, mellette a szöveg; váltakozó oldal.
+     Soronként CSAK 1 kép (Lehel). Minden kártya egy saját sor (flex): kép + szöveg; a páros
+     kártyán tükrözve (szöveg balra, kép jobbra). A kép szélessége képenként állítható (--w). */
+  .pricing-grid:has(.has-img) {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin: 8px calc(-1 * var(--gutter)) 0;
+  }
+  .pricing-card.has-img {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+  }
+  .pricing-card.has-img:nth-child(even) { flex-direction: row-reverse; }
+  .pricing-card.has-img .pricing-img { display: block; flex: 0 0 var(--w, 45%); overflow: hidden; }
+  /* mindhárom kép egyforma magas, és legalább akkora, mint a Pillanatok-képsor képei
+     (mobilon 85%-os, 3:4 kártya ≈ 107vw) → 108vw */
+  .pricing-img img {
+    display: block;
+    width: 100%;
+    height: 108vw;
+    object-fit: cover;
+    object-position: var(--x, 50%) var(--y, 50%);
+    transform: scale(var(--zoom, 1));
+    transform-origin: var(--x, 50%) var(--y, 50%);
+  }
+  /* ▼▼ KÉPKIVÁGÁS — képenként állítható (Lehel) ▼▼
+     --w:    a kép szélessége a képernyő %-ában (pl. 47% ≈ fél képernyő; 60% fölött a szövegnek kevés hely marad)
+     --zoom: nagyítás (1 = alap, 1.2 = 20%-kal közelebb; 1 alá ne menj → üres sáv lenne)
+     --x:    vízszintes pozíció (0% = a kép bal széle látszik, 50% = közép, 100% = jobb széle)
+     --y:    függőleges pozíció (0% = a kép teteje látszik, 50% = közép, 100% = alja)
+     Nagyításkor is az --x / --y pont marad a helyén (afelé közelít). */
+  .pricing-card.has-img:nth-child(1) .pricing-img { --w: 60%; --zoom: 1.1; --x: 0%; --y: 50%; } /* 1. Egyedi ruhakészítés */
+  .pricing-card.has-img:nth-child(2) .pricing-img { --w: 50%; --zoom: 1; --x: 45%; --y: 20%; } /* 2. Kollekcióból */
+  .pricing-card.has-img:nth-child(3) .pricing-img { --w: 60%; --zoom: 2; --x: 35%; --y: 50%; } /* 3. Bérlés */
+  /* ▲▲ KÉPKIVÁGÁS ▲▲ */
+  /* a szöveg a képhez közel (10px), a kép felőli oldalra igazítva (Lehel) */
+  .pricing-card.has-img .pricing-body { flex: 1; min-width: 0; padding: 0 var(--gutter) 0 10px; }
+  .pricing-card.has-img:nth-child(even) .pricing-body {
+    padding: 0 10px 0 var(--gutter);
+    display: flex; flex-direction: column; align-items: flex-end; /* jobbra, a kép mellé */
+  }
+  /* a szöveg mindhárom sorban függőlegesen a kép közepéhez igazítva (Lehel) — align-items: center a kártyán */
+  /* felirat vízszintesen (az elforgatást kipróbáltuk, elvetve — Lehel, 2026-11-16); Bővebben alatta */
+  .pricing-card.has-img .pricing-head { margin-bottom: 1rem; }
+  /* 16px felirat (Lehel: a feliratot nem csökkentjük, inkább a képet). A „KOLLEKCIÓBÓL” egy szó, nem törhet:
+     ~156px széles → a 2. kép --w legfeljebb ~50% lehet, különben kilóg a képernyőből. */
+  .pricing-card.has-img .pricing-type { font-size: 1rem; letter-spacing: 0.16em; line-height: 1.35; margin: 0; }
+  .pricing-card.has-img:nth-child(even) .pricing-type { text-align: right; }
+  /* mobilon csak a nagybetűs felirat marad, a cím rejtve (Lehel, 2026-11-16); az adminban megmarad */
+  .pricing-card.has-img .pricing-title { display: none; }
+  /* leírás mobilon rejtve (Lehel, 2026-11-16) — csak felirat + cím + Bővebben; az adminban megmarad */
+  .pricing-card.has-img .pricing-desc { display: none; }
+
+  /* ─── B VARIÁNS mobil: a képek egymás alatt ─── */
+  .pf-list { grid-template-columns: 1fr; }
+  .testi-arrow { width: 40px; height: 40px; padding: 9px; }
+  .testi-arrow--prev { left: 0; } /* a .testi-wrap képernyő-széles → negatív érték kilógna (vízszintes görgetés) */
+  .testi-arrow--next { right: 0; }
+
+
+  .cta-section { padding: 80px var(--gutter); }
   .cta-form { flex-direction: column; }
 
-  footer { padding: 64px 24px 36px; }
+  footer { padding: 64px var(--gutter) 36px; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
   .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
 
-  .book__inner { padding: 0 1.5rem; }
-  footer.site-footer { padding: 56px 1.5rem 40px; }
+  footer.site-footer { padding: 56px var(--gutter) 40px; }
   .site-footer__grid { flex-direction: column-reverse; align-items: center; text-align: center; gap: 48px; }
   .site-footer__brand { gap: 32px; align-items: center; }
   .site-footer__contact { align-items: center; }
   .site-footer__value { justify-content: center; }
   .site-footer__socials { justify-content: center; }
   .book__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .book__side { display: none; } /* mobilon nincs email / telefon / kövess minket blokk (a footerben megvan) */
   .book__row-3 { grid-template-columns: 1fr; gap: 1.5rem; }
   .book__submit { align-self: stretch; }
+
+  /* kapcsolat mobilon: a fix menü (72px) alatti teljes képernyőt tölti ki, a tartalom a tetején.
+     scroll-margin: a #kapcsolat linkre ugrásnál a szekció a menü alá kerül, nem mögé. */
+  #kapcsolat {
+    min-height: calc(100svh - 72px);
+    scroll-margin-top: 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: var(--contact-space);
+    padding-bottom: 28px;
+  }
+  .book__inner { padding: 0 var(--gutter); width: 100%; }
+  #kapcsolat .header-style { margin-bottom: var(--contact-space); } /* = a cím feletti térköz */
+  .book__submit { margin-top: calc(var(--contact-space) - 0.875rem); } /* + a form 14px gapje = --contact-space a Küldés felett */
+  .book__form { gap: 0.875rem; }
+  .book__row-3 { gap: 0.875rem; }
+  .book__field { gap: 0; }
+  #kapcsolat .book__field .about-label { font-size: 0.8125rem; letter-spacing: 0.14em; }
+  .book__input, .book__textarea { padding: 6px 2px; font-size: 1rem; }
 }
 
 /* ===== DatePicker ===== */
@@ -1575,7 +1825,7 @@ footer.site-footer {
     gap: 0;
     height: 100svh;
     min-height: 0;
-    padding: 84px 16px 24px;
+    padding: 84px var(--gutter) 24px;
   }
   .nf-media { position: relative; min-height: 0; }
   .nf-media img {
@@ -1589,7 +1839,7 @@ footer.site-footer {
   .nf-btn { text-align: center; }
 }
 
-/* ─── KOLLEKCIÓ OLDAL (/kollekcio) ─────────────────── */
+/* ─── MOOIRA PILLANATOK OLDAL (/pillanatok) ────────── */
 .cg {
   padding: 150px clamp(16px, 4vw, 40px) 100px;
 }
@@ -1608,23 +1858,170 @@ footer.site-footer {
   columns: 3;
   column-gap: 9px;
 }
-.cg-grid img {
+.cg-item {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: none;
+  /* padding (nem margin): a margin oszloptörésnél átcsúszik a következő oszlop tetejére → elcsúszott felső él */
+  padding: 0 0 9px;
+  break-inside: avoid;
+  cursor: zoom-in;
+}
+.cg-item img {
   display: block;
   width: 100%;
   height: auto;
-  /* padding (nem margin): a margin oszloptörésnél átcsúszik a következő oszlop tetejére → elcsúszott felső él */
-  padding-bottom: 9px;
-  break-inside: avoid;
+  transition: opacity 0.3s;
 }
+@media (hover: hover) { .cg-item:hover img { opacity: 0.88; } }
+.cg-item:focus-visible { outline: 1px solid var(--dark); outline-offset: 2px; }
 @media (max-width: 1023px) { .cg-grid { columns: 2; } }
 @media (max-width: 767px) {
-  .cg { padding: 110px 16px 72px; }
+  .cg { padding: 110px var(--gutter) 72px; }
   .cg-head { margin-bottom: 40px; }
   .cg-grid { columns: 2; column-gap: 6px; }
-  .cg-grid img { padding-bottom: 6px; }
+  .cg-item { padding-bottom: 6px; }
 }
 
-/* főoldali carousel: utolsó kártya a kollekció oldalra visz */
+/* ─── RÓLUNK OLDAL (/rolunk) ───────────────────────── */
+.ro {
+  padding: 150px clamp(16px, 4vw, 40px) 100px;
+}
+.ro-head {
+  max-width: 720px;
+  margin: 0 auto 64px;
+  text-align: center;
+}
+.ro-text p, .ro-text--center p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  font-weight: 280;
+  color: var(--muted);
+  word-spacing: 0.07rem;
+  margin: 0 auto 1.25rem;
+}
+.ro-text--center {
+  max-width: 720px;
+  margin: 0 auto 64px;
+  text-align: center;
+}
+.ro-wide {
+  max-width: 1200px;
+  margin: 0 auto 64px;
+}
+.ro-wide img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3/2;
+  object-fit: cover;
+}
+.ro-trio {
+  max-width: 1200px;
+  margin: 0 auto 120px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+}
+.ro-trio img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+}
+.ro-designer .about-grid { width: 100%; max-width: 1200px; }
+@media (max-width: 767px) {
+  .ro { padding: 110px var(--gutter) 72px; }
+  .ro-head, .ro-wide, .ro-text--center { margin-bottom: 40px; }
+  .ro-wide img { aspect-ratio: 4/3; }
+  /* mobilon: 2 kép egy sorban, a .ro oldalsó paddingján (--gutter) belül; a 3. rejtve */
+  .ro-trio {
+    margin-bottom: var(--gutter); /* tervező fotóig = oldalsó margó */
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gutter); /* képköz = oldalsó margó */
+  }
+  .ro-trio img:nth-child(n + 3) { display: none; }
+  /* tervező fotó: a kép tartalma feljebb csúszik a kereten belül */
+  .ro-designer .about-photo-main { object-position: center 90%; }
+  /* a fotó a .ro oldalsó paddingján (--gutter) belül marad (nem lóg ki) */
+  .ro-designer .about-photos { margin: 0; }
+}
+
+/* lightbox (PhotoGallery) — natív <dialog> */
+.lb {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--white);
+  color: var(--dark);
+  overscroll-behavior: contain;
+}
+.lb::backdrop { background: transparent; }
+.lb-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 88px;
+}
+.lb-img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  animation: lbFade 0.35s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+@keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
+.lb-count {
+  position: absolute;
+  bottom: 18px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  color: rgba(0, 0, 0, 0.7);
+}
+.lb-btn {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 10px;
+  border: 0;
+  background: none;
+  color: var(--dark);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.lb-btn svg { width: 100%; height: 100%; }
+@media (hover: hover) { .lb-btn:hover { opacity: 0.55; } }
+.lb-close { top: 10px; right: 12px; }
+.lb-prev, .lb-next { top: 50%; transform: translateY(-50%); }
+.lb-prev { left: 20px; }
+.lb-next { right: 20px; }
+@media (max-width: 767px) {
+  .lb-stage { padding: 56px 0 44px; }
+  /* mobilon swipe a fő lapozás; a nyilak kicsik, a kép széle fölött */
+  .lb-prev, .lb-next { top: auto; bottom: 4px; transform: none; width: 44px; height: 44px; }
+  .lb-prev { left: 8px; }
+  .lb-next { right: 8px; }
+}
+
+/* főoldali carousel: utolsó kártya a /pillanatok oldalra visz */
 .collection-cta {
   display: flex;
   flex-direction: column;

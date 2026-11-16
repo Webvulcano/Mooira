@@ -7,7 +7,7 @@ import { siteInfoFromCms } from '@/lib/site-info'
 import '@/styles/tailwind.css'
 import '@/styles/globals.css'
 
-// Alap (pl. 404-hez); a főoldal és a /kollekcio a CMS-ből írja felül (generateMetadata).
+// Alap (pl. 404-hez); a főoldal, a /pillanatok és a /rolunk a CMS-ből írja felül (generateMetadata).
 export const metadata = {
   title: SEO.title,
   description: SEO.description,

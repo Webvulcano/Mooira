@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { BRAND_NAME } from '@/content/site'
 import { useSiteInfo } from './SiteInfo'
 
@@ -11,6 +12,8 @@ export default function Navigation({ standalone = false }) {
   const [navClass, setNavClass] = useState(standalone ? '' : 'video-top nav-hidden')
   const base = standalone ? '/' : ''
   const info = useSiteInfo()
+  const pathname = usePathname()
+  const cur = (path) => (pathname === path ? { 'aria-current': 'page' } : {})
   const navRef = useRef(null)
   const rafRef = useRef(null)
 
@@ -63,13 +66,13 @@ export default function Navigation({ standalone = false }) {
           <img src="/logo/full-logo-black.png" alt={BRAND_NAME.toLowerCase()} />
         </a>
         <ul className="nav-links">
-          <li><a href={`${base}#folyamat`} className="p-style">Folyamat</a></li>
+          {/* Eszter menüje (2026-11): Kezdőlap · Mooira pillanatok · Vélemények · Rólunk · [Időpontfoglalás] */}
+          <li><Link href="/" className="p-style" {...cur('/')}>Kezdőlap</Link></li>
+          <li><Link href="/pillanatok" className="p-style" {...cur('/pillanatok')}>Mooira pillanatok</Link></li>
           <li><a href={`${base}#velemenyek`} className="p-style">Vélemények</a></li>
-          <li><Link href="/kollekcio" className="p-style">Kollekciók</Link></li>
-          <li><a href={`${base}#arak`} className="p-style">Árak</a></li>
-          <li><a href="#kapcsolat" className="p-style">Kapcsolat</a></li>
+          <li><Link href="/rolunk" className="p-style" {...cur('/rolunk')}>Rólunk</Link></li>
         </ul>
-        <a href="#kapcsolat" className="nav-cta">Időpontot foglalok</a>
+        <a href="#kapcsolat" className="nav-cta">Időpontfoglalás</a>
         <button
           className={`nav-hamburger${menuOpen ? ' open' : ''}`}
           onClick={toggleMenu}
@@ -81,14 +84,13 @@ export default function Navigation({ standalone = false }) {
 
       <div className={`mobile-menu${menuOpen ? ' open' : ''}`}>
         <nav className="mobile-nav-links">
-          <a href={`${base}#folyamat`} onClick={closeMenu}>Folyamat</a>
+          <Link href="/" onClick={closeMenu} {...cur('/')}>Kezdőlap</Link>
+          <Link href="/pillanatok" onClick={closeMenu} {...cur('/pillanatok')}>Mooira pillanatok</Link>
           <a href={`${base}#velemenyek`} onClick={closeMenu}>Vélemények</a>
-          <Link href="/kollekcio" onClick={closeMenu}>Kollekciók</Link>
-          <a href={`${base}#arak`} onClick={closeMenu}>Árak</a>
-          <a href="#kapcsolat" onClick={closeMenu}>Kapcsolat</a>
+          <Link href="/rolunk" onClick={closeMenu} {...cur('/rolunk')}>Rólunk</Link>
         </nav>
         <div className="mobile-menu-footer">
-          <a href="#kapcsolat" className="mobile-menu-cta" onClick={closeMenu}>Időpontot foglalok</a>
+          <a href="#kapcsolat" className="mobile-menu-cta" onClick={closeMenu}>Időpontfoglalás</a>
           <div className="mobile-menu-contact">
             <a href={info.mailto}>{info.email}</a>
             <a href={info.tel}>{info.phone}</a>

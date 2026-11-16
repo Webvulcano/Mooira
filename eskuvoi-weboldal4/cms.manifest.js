@@ -17,6 +17,7 @@ import {
   PHONE_DISPLAY,
   PRICING,
   PROCESS,
+  ROLUNK_PAGE,
   SEO,
   TESTIMONIALS,
 } from "./src/content/site.js";
@@ -55,10 +56,10 @@ const manifest = {
       conversions: ["Telefonhívás", "Email", "Űrlapküldés"],
     },
   },
-  // Kollekciók oldal (/kollekcio) = galéria modul, egy közös lista (1 kategória).
+  // Mooira pillanatok oldal (/pillanatok, korábban /kollekcio) = galéria modul, egy közös lista (1 kategória).
   // maxWidth 1000: 3 oszlop × ~400 px, retinán 2× (ugyanaz, mint a kézi WebP-konverzió).
   gallery: {
-    label: "Kollekciók",
+    label: "Mooira pillanatok",
     maxWidth: 1000,
     aspect: "2/3",
     links: [],
@@ -124,7 +125,7 @@ const manifest = {
         },
         {
           key: "collection",
-          label: "Kollekció (főoldali képsor)",
+          label: "Mooira pillanatok (főoldali képsor)",
           fields: [
             text("title", "Cím", COLLECTION.title, 60),
             text("cta_title", "Utolsó kártya — felirat", COLLECTION.ctaTitle, 40),
@@ -134,7 +135,7 @@ const manifest = {
             {
               key: "carousel",
               label: "Képsor",
-              help: "A főoldalon lapozható képek (a teljes lista a Kollekciók menüben van).",
+              help: "A főoldalon lapozható képek (a teljes lista a Mooira pillanatok menüben van).",
               kind: "gallery",
               maxItems: 8,
               maxWidth: 1000,
@@ -143,6 +144,7 @@ const manifest = {
           ],
         },
         {
+          // ⚠️ az oldalon már nincs (2026-11-13) — élesítés után törölni + sync (archiválódik)
           key: "process",
           label: "Ruhakészítés menete",
           fields: [
@@ -166,6 +168,7 @@ const manifest = {
           fields: [text("title", "Cím", TESTIMONIALS.title, 40)],
         },
         {
+          // az ár (price + note) 2026-11-13 óta nem jelenik meg → rejtett mezők
           key: "pricing",
           label: "Árak",
           fields: [
@@ -178,11 +181,22 @@ const manifest = {
                 it("type", "Felirat", "text", { maxLength: 30 }),
                 it("title", "Cím", "text", { maxLength: 60 }),
                 it("desc", "Leírás", "textarea", { maxLength: 300 }),
-                it("price", "Ár", "text", { maxLength: 20 }),
-                it("note", "Ár melletti megjegyzés", "text", { maxLength: 40 }),
+                it("price", "Ár", "text", { maxLength: 20, hidden: true }),
+                it("note", "Ár melletti megjegyzés", "text", { maxLength: 40, hidden: true }),
                 it("highlight", "Kiemelt", "text", { maxLength: 4, hidden: true }),
               ],
               default: PRICING.cards,
+            },
+          ],
+          images: [
+            {
+              key: "images",
+              label: "Képek (kártyánként 1, sorrendben)",
+              help: "Pontosan 3 álló képet tölts fel, a kártyák sorrendjében.",
+              kind: "gallery",
+              maxItems: 3,
+              maxWidth: 1200,
+              aspect: "2/3",
             },
           ],
         },
@@ -191,6 +205,7 @@ const manifest = {
           label: "Kapcsolat",
           fields: [
             text("title", "Cím", CONTACT.title, 40),
+            area("intro", "Szöveg a cím alatt", CONTACT.intro, 500),
             text("success_title", "Köszönő üzenet — cím", CONTACT.successTitle, 40),
             area("success_text", "Köszönő üzenet — szöveg", CONTACT.successText, 300),
             text("success_sign", "Köszönő üzenet — aláírás", CONTACT.successSign, 30),
@@ -199,9 +214,10 @@ const manifest = {
       ],
     },
     {
+      // a kulcs marad „kollekcio” (átnevezés = új mező, a régi archiválódna)
       key: "kollekcio",
-      label: "Kollekciók",
-      path: "/kollekcio",
+      label: "Mooira pillanatok",
+      path: "/pillanatok",
       sections: [
         seo(KOLLEKCIO_PAGE.seoTitle),
         {
@@ -210,6 +226,67 @@ const manifest = {
           fields: [
             text("title", "Cím", KOLLEKCIO_PAGE.title, 40),
             area("subtitle", "Alcím", KOLLEKCIO_PAGE.subtitle, 200),
+          ],
+        },
+      ],
+    },
+    {
+      // Rólunk / A márka mögött (Eszter „Menüpont kifejtése”, 2026-11)
+      key: "rolunk",
+      label: "Rólunk",
+      path: "/rolunk",
+      sections: [
+        seo(ROLUNK_PAGE.seoTitle),
+        {
+          key: "brand",
+          label: "Mooira couture",
+          fields: [
+            text("label", "Felirat a cím felett", ROLUNK_PAGE.label, 40),
+            area("title", "Cím (soronként egy sor)", ROLUNK_PAGE.title, 80, { lines: true }),
+            rich("intro", "Szöveg", ROLUNK_PAGE.intro),
+          ],
+          images: [
+            {
+              key: "wide_image",
+              label: "Nagy kép",
+              help: "Fekvő kép a legjobb.",
+              maxWidth: 1800,
+              default: ROLUNK_PAGE.wideImage,
+            },
+          ],
+        },
+        {
+          key: "style",
+          label: "Stílus + 3 kép",
+          fields: [rich("body", "Szöveg", ROLUNK_PAGE.style)],
+          images: [
+            {
+              key: "images",
+              label: "3 kép egymás mellett",
+              help: "Pontosan 3 képet tölts fel (álló képek).",
+              kind: "gallery",
+              maxItems: 3,
+              maxWidth: 1000,
+              aspect: "3/4",
+            },
+          ],
+        },
+        {
+          key: "designer",
+          label: "Ismerd meg a tervezőt",
+          fields: [
+            text("label", "Felirat a cím felett", ROLUNK_PAGE.designerLabel, 40),
+            text("title", "Cím", ROLUNK_PAGE.designerTitle, 80),
+            rich("body", "Szöveg", ROLUNK_PAGE.designerBody),
+            text("cta", "Gomb felirata", ROLUNK_PAGE.cta, 30),
+          ],
+          images: [
+            {
+              key: "portrait",
+              label: "Portré",
+              maxWidth: 1200,
+              default: ROLUNK_PAGE.portrait,
+            },
           ],
         },
       ],

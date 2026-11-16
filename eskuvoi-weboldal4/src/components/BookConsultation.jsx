@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, useCallback, useSyncExternalStore, memo } from 'react'
+import { useRef, useState, useCallback, useEffect, useSyncExternalStore, memo } from 'react'
 import { useReveal } from './useReveal'
 import { DatePicker } from './untitled-ui/date-picker'
 import { trackEvent } from '@/lib/analytics'
@@ -21,13 +21,30 @@ export default function BookConsultation() {
   const info = useSiteInfo()
   const c = info.contact
 
-  const [form, setForm] = useState({ name: '', email: '', city: '', vision: '' })
+  const emptyForm = { name: '', email: '', city: '', vision: '' }
+  const [form, setForm] = useState(emptyForm)
   const [date, setDate] = useState(null)
-  // csak fejlesztéskor: ?koszonjuk az URL-ben → rögtön a köszönő üzenet látszik (élesben nem működik)
-  const [sent, setSubmitted] = useState(false)
+  // Sikeres küldés → köszönő popup (Eszter kérése, 2026-11), az űrlap kiürül és használható marad.
+  // csak fejlesztéskor: ?koszonjuk az URL-ben → rögtön nyílik a popup (élesben nem működik)
+  const [thanks, setThanks] = useState(false)
+  const [devDismissed, setDevDismissed] = useState(false)
   const devThanks = useSyncExternalStore(noopSubscribe, getDevThanks, () => false)
-  const submitted = sent || devThanks
+  const thanksOpen = thanks || (devThanks && !devDismissed)
   const [status, setStatus] = useState(null) // null | 'sending' | 'error'
+  const dialogRef = useRef(null)
+  const formRef = useRef(null)
+
+  useEffect(() => {
+    const dlg = dialogRef.current
+    if (!dlg) return
+    if (thanksOpen && !dlg.open) dlg.showModal()
+    else if (!thanksOpen && dlg.open) dlg.close()
+  }, [thanksOpen])
+
+  const closeThanks = useCallback(() => {
+    setThanks(false)
+    setDevDismissed(true)
+  }, [])
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target
@@ -57,7 +74,11 @@ export default function BookConsultation() {
     try {
       const res = await fetch(`https://api.simplyforms.app/v1/forms/${FORM_ID}`, { method: 'POST', body })
       if (!res.ok) throw new Error(await res.text())
-      setSubmitted(true)
+      setForm(emptyForm)
+      setDate(null)
+      setStatus(null)
+      formRef.current?.querySelectorAll('textarea').forEach((t) => { t.style.height = '' })
+      setThanks(true)
       trackEvent('Űrlapküldés', { oldal: window.location.pathname })
     } catch (err) {
       console.error('[BookConsultation] SimplyForms hiba:', err)
@@ -71,6 +92,11 @@ export default function BookConsultation() {
         <h2 className="header-style reveal" {...cmsAttr('home.contact.title')}>
           {c.title}
         </h2>
+        {/* kikommentezve (Lehel, 2026-11-13) — Eszter 9–12 hónapos szövege (home.contact.intro)
+        {c.intro && (
+          <p className="p-style book__intro reveal" {...cmsAttr('home.contact.intro')}>{c.intro}</p>
+        )}
+        */}
 
         <div className="book__grid">
           <div className="book__side reveal">
@@ -99,8 +125,8 @@ export default function BookConsultation() {
             <div className="book__success reveal in" role="status">
               <p className="p-style">Az űrlap karbantartás alatt — addig írj az <a href={info.mailto}>{info.email}</a> címre, vagy hívj.</p>
             </div>
-          ) : !submitted ? (
-            <form className="book__form reveal" onSubmit={handleSubmit} noValidate>
+          ) : (
+            <form className="book__form reveal" onSubmit={handleSubmit} noValidate ref={formRef}>
               <div className="book__row-3">
                 <label className="book__field">
                   <span className="about-label">Név</span>
@@ -170,15 +196,27 @@ export default function BookConsultation() {
                 <p className="p-style" role="status">Hiba történt — addig írj az <a href={info.mailto}>{info.email}</a> címre.</p>
               )}
             </form>
-          ) : (
-            <div className="book__success book__success--sent reveal in" role="status">
-              <p className="book__success-title" {...cmsAttr('home.contact.success_title')}>{c.successTitle}</p>
-              <p className="p-style" {...cmsAttr('home.contact.success_text')}>{c.successText}</p>
-              <p className="book__success-sign" {...cmsAttr('home.contact.success_sign')}>{c.successSign}</p>
-            </div>
           )}
         </div>
       </div>
+
+      <dialog
+        ref={dialogRef}
+        className="thanks"
+        aria-labelledby="thanks-title"
+        onClose={closeThanks}
+        // a kártyán kívüli kattintás (a sötétített háttér) bezár
+        onClick={(e) => { if (e.target === e.currentTarget) closeThanks() }}
+      >
+        <div className="thanks__card" role="status">
+          <button type="button" className="thanks__close" onClick={closeThanks} aria-label="Bezárás">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"><path d="M5 5l14 14M19 5L5 19" /></svg>
+          </button>
+          <p id="thanks-title" className="thanks__title" {...cmsAttr('home.contact.success_title')}>{c.successTitle}</p>
+          <p className="thanks__text" {...cmsAttr('home.contact.success_text')}>{c.successText}</p>
+          {c.successSign && <p className="thanks__sign" {...cmsAttr('home.contact.success_sign')}>{c.successSign}</p>}
+        </div>
+      </dialog>
     </section>
   )
 }

@@ -1,6 +1,7 @@
 import Navigation from '@/components/Navigation'
 import BookConsultation from '@/components/BookConsultation'
 import Footer from '@/components/Footer'
+import PhotoGallery from '@/components/PhotoGallery'
 import { BRAND_NAME } from '@/content/site'
 import { getCms } from '@/lib/cms'
 import { cmsAttr } from '@/lib/cms-attr'
@@ -10,9 +11,11 @@ export async function generateMetadata() {
   return { title: cms.text('kollekcio.seo.title') }
 }
 
-export default async function CollectionPage() {
+export default async function CollectionPage({ searchParams }) {
+  // ?kep=<src> → a főoldali „Mooira pillanatok” képére kattintva ez a kép nyílik meg nagyban (2026-11-16)
+  const { kep } = (await searchParams) ?? {}
   const cms = await getCms()
-  // Galéria modul (admin → Kollekciók); csak képek, YouTube-elemek nélkül.
+  // Galéria modul (admin → Mooira pillanatok); csak képek, YouTube-elemek nélkül.
   const images = (cms.gallery()?.items ?? []).filter((it) => it.src)
 
   return (
@@ -25,11 +28,7 @@ export default async function CollectionPage() {
           <p className="cg-sub p-style" {...cmsAttr('kollekcio.head.subtitle')}>{cms.text('kollekcio.head.subtitle')}</p>
         </header>
 
-        <div className="cg-grid">
-          {images.map(({ src, width, height, alt }) => (
-            <img key={src} src={src} width={width} height={height} alt={alt || `${BRAND_NAME} menyasszonyi ruha`} loading="lazy" decoding="async" />
-          ))}
-        </div>
+        <PhotoGallery images={images} initialSrc={typeof kep === 'string' ? kep : null} fallbackAlt={`${BRAND_NAME} menyasszonyi ruha`} />
       </main>
 
       <BookConsultation />

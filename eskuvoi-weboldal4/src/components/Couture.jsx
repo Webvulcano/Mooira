@@ -17,7 +17,7 @@ export default function Couture({ label, title, body, image }) {
             {image && <img className="about-photo-main" src={image.src} alt={image.alt} />}
           </div>
           <div className="about-text reveal">
-            <p className="about-label" {...cmsAttr('home.couture.label')}>{label}</p>
+            <p className="about-label section-label" {...cmsAttr('home.couture.label')}>{label}</p>
             <h2 className="about-name couture-title" {...cmsAttr('home.couture.title')}>
               {title.map((line, i) => <span key={i}>{i > 0 && <br />}{line}</span>)}
             </h2>

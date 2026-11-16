@@ -1,52 +1,58 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useReveal } from './useReveal'
 import { cmsAttr } from '@/lib/cms-attr'
 
+// Kézzel lapozható vélemények (Eszter kérése, 2026-11): nyilak, swipe, pöttyök.
+// Nincs automatikus váltás — a látogató a saját tempójában olvas.
 export default function Testimonials({ title, slides }) {
   const [current, setCurrent] = useState(0)
-  const pausedRef = useRef(false)
+  const touchX = useRef(null)
   const ref = useRef(null)
   useReveal(ref)
 
-  const goTo = (idx) => {
-    setCurrent((idx + slides.length) % slides.length)
-  }
+  const count = slides.length
+  const goTo = (idx) => setCurrent((idx + count) % count)
+  const step = (dir) => setCurrent((c) => (c + dir + count) % count)
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (!pausedRef.current) {
-        setCurrent(c => (c + 1) % slides.length)
-      }
-    }, 5000)
-    return () => clearInterval(timer)
-  }, [slides.length])
+  const onTouchStart = (e) => { touchX.current = e.touches[0].clientX }
+  const onTouchEnd = (e) => {
+    if (touchX.current === null) return
+    const dx = e.changedTouches[0].clientX - touchX.current
+    touchX.current = null
+    if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1)
+  }
 
   return (
     <section id="velemenyek" ref={ref}>
       <div className="container" style={{ textAlign: 'center' }}>
         <div className="reveal">
-          {/*<p className="about-label">Vélemények</p>*/}
           <h2 className="header-style" {...cmsAttr('home.testimonials.title')}>{title}</h2>
-
-          {/*<h2 className="header-style">Az ő szavaikkal.</h2>} */}
         </div>
-        <div
-          className="testi-carousel reveal"
-          onMouseEnter={() => { pausedRef.current = true }}
-          onMouseLeave={() => { pausedRef.current = false }}
-        >
-          <div className="testi-track" style={{ transform: `translateX(-${current * 100}%)` }}>
-            {slides.map((slide, i) => (
-              <div className="testi-slide" key={i}>
-                <span className="about-name testi-mark">&quot;</span>
-                <blockquote className="p-style">{slide.quote}</blockquote>
-                <div className="testi-divider"></div>
-                <cite className="about-label">{slide.cite}</cite>
-              </div>
-            ))}
+        <div className="testi-wrap reveal">
+          <div className="testi-carousel" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} aria-live="polite">
+            <div className="testi-track" style={{ transform: `translateX(-${current * 100}%)` }}>
+              {slides.map((slide, i) => (
+                <div className="testi-slide" key={i} aria-hidden={i !== current}>
+                  <span className="about-name testi-mark">&quot;</span>
+                  <blockquote className="p-style">{slide.quote}</blockquote>
+                  <div className="testi-divider"></div>
+                  <cite className="about-label">{slide.cite}</cite>
+                </div>
+              ))}
+            </div>
           </div>
+          {count > 1 && (
+            <>
+              <button type="button" className="testi-arrow testi-arrow--prev" onClick={() => step(-1)} aria-label="Előző vélemény">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 5 8 12 15 19" /></svg>
+              </button>
+              <button type="button" className="testi-arrow testi-arrow--next" onClick={() => step(1)} aria-label="Következő vélemény">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 5 16 12 9 19" /></svg>
+              </button>
+            </>
+          )}
         </div>
         <div className="testi-dots">
           {slides.map((_, i) => (

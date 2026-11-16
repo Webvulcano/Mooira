@@ -24,8 +24,9 @@ const nextConfig = {
     return [
       { source: "/admin", destination: `${dashboard}/${slug}`, permanent: false },
       { source: "/admin/:path*", destination: `${dashboard}/${slug}/:path*`, permanent: false },
-      // a Vite-verzió régi placeholder route-ja
-      { source: "/collections/:path*", destination: "/kollekcio", permanent: true },
+      // a Vite-verzió régi placeholder route-ja + a régi galéria-URL (Kollekciók → Mooira pillanatok)
+      { source: "/collections/:path*", destination: "/pillanatok", permanent: true },
+      { source: "/kollekcio", destination: "/pillanatok", permanent: true },
     ];
   },
   async headers() {
